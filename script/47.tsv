@@ -1,51 +1,51 @@
 id	kind	jp	en
-47-00a	name	　バング	
-47-00b	name	　ティリア	
-47-01a	name	　オットー	
-47-01b	name	　ハーマン	
-47-02a	name	　スピノザ	
-47-02b	name	　カルナーサ	
-47-03a	name	　シーナ	
-47-03b	name	　ガストン	
-47-04a	name	　パチェット	
-47-05	menu	　中央政府都市へ	
-47-06	menu	　ようこそ	
-47-07	menu	　バトルタイクーン	
-47-08	menu	　出場のかたですね	
-47-09	menu	　登録はお済みですか？	
+47-00a	name	　バング	　Bang
+47-00b	name	　ティリア	　Tiria
+47-01a	name	　オットー	　Ottoh
+47-01b	name	　ハーマン	　Harman
+47-02a	name	　スピノザ	　Spenoza
+47-02b	name	　カルナーサ	　Calnarsa
+47-03a	name	　シーナ	　Seena
+47-03b	name	　ガストン	　Guston
+47-04a	name	　パチェット	　Pachet
+47-05	menu	　中央政府都市へ	　Welcome to Central
+47-06	menu	　ようこそ	　Government City!
+47-07	menu	　バトルタイクーン	　A Battle Tycoon
+47-08	menu	　出場のかたですね	　entrant, I presume?
+47-09	menu	　登録はお済みですか？	　Are you registered?
 47-0A	menu	　　　　　ＹＥＳ／ＮＯ	
-47-0B	menu	　あなたの登録された	
-47-0C	menu	　ファイルはどれですか	
-47-0D	menu	　　　　　　さんですね	
-47-0E	menu	　それではお気をつけて	
-47-0F	menu	　それでは	
-47-10	menu	　お名前をどうぞ	
-47-11	menu	　どのファイルに	
-47-12	menu	　登録なさいますか？	
-47-13	menu	　ランクを	
-47-14	menu	　選んでください	
-47-15	menu	　これでよろしいですか	
+47-0B	menu	　あなたの登録された	　Which file are you
+47-0C	menu	　ファイルはどれですか	　registered under?
+47-0D	menu	　　　　　　さんですね	　　　　　　-san, yes?
+47-0E	menu	　それではお気をつけて	　Take care, then.
+47-0F	menu	　それでは	　Now then, please
+47-10	menu	　お名前をどうぞ	　tell me your name.
+47-11	menu	　どのファイルに	　Which file shall I
+47-12	menu	　登録なさいますか？	　register you in?
+47-13	menu	　ランクを	　Please select
+47-14	menu	　選んでください	　your rank.
+47-15	menu	　これでよろしいですか	　Is this all right?
 47-16	menu	　　　　　ＹＥＳ／ＮＯ	
-47-17	menu	　それではお気をつけて	
-47-19	menu	　いらっしゃいませ	
-47-1A	menu	　ご用件をどうぞ	
-47-1B	menu	　今現在のあなたの	
-47-1C	menu	　パスワードです	
-47-1D	menu	　セーブしました	
-47-1F	menu	　モードを終了しますか	
+47-17	menu	　それではお気をつけて	　Take care, then.
+47-19	menu	　いらっしゃいませ	　Welcome.
+47-1A	menu	　ご用件をどうぞ	　How may I help you?
+47-1B	menu	　今現在のあなたの	　This is your
+47-1C	menu	　パスワードです	　current password.
+47-1D	menu	　セーブしました	　Your data is saved.
+47-1F	menu	　モードを終了しますか	　Quit this mode?
 47-20	menu	　　　　　ＹＥＳ／ＮＯ	
-47-21	menu	　ほかにご用件は	
-47-22	menu	　おありですか？	
-47-23	menu	　▼セーブする	
-47-24	menu	　<▲▼>パスワードを見る	
-47-25	menu	　▲センターを出る	
-47-27	menu	　ファイルにデータが	
-47-28	menu	　入れられておりません	
-47-29	menu	　バックアップラムが	
-47-2A	menu	　でんちぎれです	
-47-2B	menu	　このままではセーブや	
-47-2C	menu	　ロードができません	
-47-2D	menu	　このファイルではもう	
-47-2E	menu	　大会に出場できません	
-47-2F	menu	　バーサスの登録用に	
-47-30	menu	　活用してください	
+47-21	menu	　ほかにご用件は	　Anything else I can
+47-22	menu	　おありですか？	　help you with?
+47-23	menu	　▼セーブする	　▼Save
+47-24	menu	　<▲▼>パスワードを見る	　<▲▼>View Password
+47-25	menu	　▲センターを出る	　▲Leave the Center
+47-27	menu	　ファイルにデータが	　There is no data
+47-28	menu	　入れられておりません	　in this file.
+47-29	menu	　バックアップラムが	　The backup RAM
+47-2A	menu	　でんちぎれです	　battery is dead.
+47-2B	menu	　このままではセーブや	　As it is, you cannot
+47-2C	menu	　ロードができません	　save or load.
+47-2D	menu	　このファイルではもう	　This file can no
+47-2E	menu	　大会に出場できません	　longer compete.
+47-2F	menu	　バーサスの登録用に	　Please use it for
+47-30	menu	　活用してください	　Versus registration.

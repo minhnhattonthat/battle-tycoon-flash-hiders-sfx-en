@@ -1,75 +1,75 @@
 id	kind	jp	en
-A3-00	story	　ダイルファー「すまん！シーナ	
+A3-00	story	　ダイルファー「すまん！シーナ	Dairufa: Forgive me! Seena, I beg of you!! Would you go into service for me?!
 A3-01	story	　このとおぉりっ！！奉公に	
 A3-02	story	　行ってくれぬか！！」{wait}	
-A3-03	story	　シーナ「ど、どうしたんですか	
+A3-03	story	　シーナ「ど、どうしたんですか	Seena: Wh-whatever is the matter, Dairufa-sama?!
 A3-04	story	　ダイルファー様！？」{wait}	
-A3-05	story	　ダイルファー「悪徳商法に	
+A3-05	story	　ダイルファー「悪徳商法に	Dairufa: I was taken in by a swindle, and now I'm drowning in debt.
 A3-06	story	　ひっかかってしまってな、	
 A3-07	story	　借金地獄になってしまったのだ{wait}	
-A3-08	story	　…と、いう訳で中央政府の	
+A3-08	story	　…と、いう訳で中央政府の	...And so, you'll be working as secretary to Chairman Spenoza of the Central Government. Do your best!
 A3-09	story	　スピノザ主席の秘書として	
 A3-0A	story	　働いてもらうことになったから	
 A3-0B	story	　がんばってきてくれ！」{end}	
-A3-0C	story	　シーナ「…はぁー、その	
+A3-0C	story	　シーナ「…はぁー、その	Seena: ...Sigh. Spenoza-sama himself is considerate, so that part is fine, but...
 A3-0D	story	　スピノザ様は気をつかって	
 A3-0E	story	　くださるからいいですけど{wait}	
-A3-0F	story	　無愛想ないかつい男の人は	
+A3-0F	story	　無愛想ないかつい男の人は	there's that sullen, hulking man, and that violent woman keeps picking on me...
 A3-10	story	　いるし、乱暴な女の人は	
 A3-11	story	　私のことをいじめるし…{wait}	
-A3-12	story	　この大会の優勝賞金で借金を	
+A3-12	story	　この大会の優勝賞金で借金を	I shall pay off the debt with this tournament's prize money and return to my quiet old life as soon as I can~
 A3-13	story	　かえして、早く静かな	
 A3-14	story	　元の生活に戻りたいですわ〜」{end2}	
-A3-40	story	　シーナ「あっ、	
+A3-40	story	　シーナ「あっ、	Seena: Oh, Dairufa-sama!!
 A3-41	story	　ダイルファー様！！」{wait}	
-A3-42	story	　ダイルファー「おお、シーナ、	
+A3-42	story	　ダイルファー「おお、シーナ、	Dairufa: Ah, Seena, I see you're working hard.
 A3-43	story	　がんばっているようじゃな」{wait}	
-A3-44	story	　シーナ「どうして	
+A3-44	story	　シーナ「どうして	Seena: What are you doing in a place like this?!
 A3-45	story	　こんなところに	
 A3-46	story	　いらっしゃるのですか！？」{wait}	
-A3-47	story	　ダイルファー「いや、なに、	
+A3-47	story	　ダイルファー「いや、なに、	Dairufa: Well, you see, the debt collectors make such a racket at home.
 A3-48	story	　家にいるととりたてが	
 A3-49	story	　うるさくてな。{wait}	
-A3-4A	story	　それにお前が	
+A3-4A	story	　それにお前が	Besides, Chairman Spenoza told me you were entering the Battle Tycoon, so I came to cheer you on.
 A3-4B	story	　バトルタイクーンにでると	
 A3-4C	story	　スピノザ主席から聞いてな、	
 A3-4D	story	　応援に来たんじゃよ」{end}	
-A3-4E	story	　シーナ「は、はぁ…（人に	
+A3-4E	story	　シーナ「は、はぁ…（人に	Seena: I-I see... (He leaves me to do all the work while he takes it easy. How nice for him.<anger>)
 A3-4F	story	　あれこれ仕事させといて	
 A3-50	story	　自分はのん気なもんね<anger>）」{wait}	
-A3-51	story	　ダイルファー「ん？	
+A3-51	story	　ダイルファー「ん？	Dairufa: Hm? Did you say something?
 A3-52	story	　なにか言ったか？」{wait}	
-A3-53	story	　シーナ「いえ、別になんでも	
+A3-53	story	　シーナ「いえ、別になんでも	Seena: No, nothing at all. Now, I have the finals to attend, so if you'll excuse me.
 A3-54	story	　ありませんわ。それでは私	
 A3-55	story	　これから本戦ですので	
 A3-56	story	　失礼いたします。{end}	
-A3-57	story	　…ふぅ…こんなことなら	
+A3-57	story	　…ふぅ…こんなことなら	...Sigh... At this rate, perhaps I should end my contract at the close of the year...
 A3-58	story	　今年いっぱいで	
 A3-59	story	　契約解除しようかしら…」{end2}	
-A3-80	story	　シーナ「やりましたわっっ！！	
+A3-80	story	　シーナ「やりましたわっっ！！	Seena: I did it!! That settles Dairufa-sama's debt in one stroke! And I won't have to work for the Central Government anymore!!
 A3-81	story	　これでダイルファー様の借金も	
 A3-82	story	　いっきに解決ですわね！私も	
 A3-83	story	　もう中央政府で働かないでも	
 A3-84	story	　いいのねっ！！」{wait}	
-A3-85	story	　ダイルファー「いやー、	
+A3-85	story	　ダイルファー「いやー、	Dairufa: Well now, I'm afraid that won't be possible.
 A3-86	story	　残念ながらそれは	
 A3-87	story	　できんのじゃよ」{end}	
-A3-88	story	　シーナ「えっ！？	
+A3-88	story	　シーナ「えっ！？	Seena: What?! Why not? Is there still more debt?!
 A3-89	story	　どうしてですか？借金って	
 A3-8A	story	　まだあるんですか！？」{wait}	
-A3-8B	story	　ダイルファー「いやいや借金は	
+A3-8B	story	　ダイルファー「いやいや借金は	Dairufa: No, no, the debt is paid off. But I never imagined you'd actually bring home the prize money, you see,
 A3-8C	story	　返せたんじゃがのー、まさか	
 A3-8D	story	　お前が賞金をかせいでくるとは	
 A3-8E	story	　思わなかったのでな、{wait}	
-A3-8F	story	　勝手に政府とニ年契約を結んで	
+A3-8F	story	　勝手に政府とニ年契約を結んで	so I went ahead and signed you to a two-year contract with the government... Wahahaha!
 A3-90	story	　しまったわい…わっはっはっ」{wait}	
-A3-91	story	　シーナ「えーっ！？」{wait}	
-A3-92	story	　ダイルファー「と、いうわけで	
+A3-91	story	　シーナ「えーっ！？」{wait}	Seena: Whaaat?!
+A3-92	story	　ダイルファー「と、いうわけで	Dairufa: So don't you worry about me. Just work hard!
 A3-93	story	　わしのことは心配せんで	
 A3-94	story	　いいから、がんばって	
 A3-95	story	　働いてくれ！{wait}	
-A3-96	story	　中央政府の主席の秘書なんて	
+A3-96	story	　中央政府の主席の秘書なんて	Not just anyone gets to be secretary to the Chairman of the Central Government~ Play it right and you'll marry into money!!
 A3-97	story	　なかなかなれるもんじゃ	
 A3-98	story	　ないぞ〜、うまくいけば	
 A3-99	story	　玉の輿じゃあ！！」{end}	
-A3-9A	story	　シーナ「………………………」{end2}	
+A3-9A	story	　シーナ「………………………」{end2}	Seena: ...

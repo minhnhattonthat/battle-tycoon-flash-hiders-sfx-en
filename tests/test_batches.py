@@ -10,6 +10,12 @@ def test_menu_layout():
     assert batches.menu_layout("　すか？　ＹＥＳ／ＮＯ") == ("　", "すか？", "ＹＥＳ／ＮＯ", 8)
 
 
+def test_has_term_whole_katakana_runs():
+    assert batches.has_term("リラとレイ「え？」", "レイ")
+    assert not batches.has_term("フレイムロッド", "レイ")
+    assert batches.has_term("中央政府都市へ", "中央政府")
+
+
 def test_entries_cover_script():
     """Every non-data, non-credit row with Japanese text is reached by exactly one batch entry."""
     rows = batches.script()

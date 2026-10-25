@@ -1,24 +1,24 @@
 id	kind	jp	en
-9D-00	story	　バング「おおーっし！！これで	
+9D-00	story	　バング「おおーっし！！これで	Bang: All riiight!! This year I get to enter the Battle Tycoon! A new page of my legend as the mightiest man alive is about to begin!!
 9D-01	story	　今年はバトルタイクーンに参加	
 9D-02	story	　できるぜ！俺様の最強伝説に	
 9D-03	story	　またあらたなるページが	
 9D-04	story	　生まれるんだぁ！！」{wait}	
-9D-05	story	　ティリア「はいはい、	
+9D-05	story	　ティリア「はいはい、	Tiria: Yeah, yeah. The mightiest nutcase alive.
 9D-06	story	　最狂伝説ね」{wait}	
-9D-07	story	　バング「俺様の活躍を期待して	
+9D-07	story	　バング「俺様の活躍を期待して	Bang: Gotta give it my all for the folks back in the village who're counting on me!
 9D-08	story	　いる村の連中のためにも	
 9D-09	story	　がんばらなきゃあな！」{wait}	
-9D-0A	story	　ティリア「ふっ…追い出された	
+9D-0A	story	　ティリア「ふっ…追い出された	Tiria: Heh... Not a care in the world, and no clue they ran him out of town.
 9D-0B	story	　とも知らずにのんきなもんね」{end}	
-9D-0C	story	　バング「おっ？何か言ったか、	
+9D-0C	story	　バング「おっ？何か言ったか、	Bang: Huh? You say somethin', Tiria?
 9D-0D	story	　ティリア？」{wait}	
-9D-0E	story	　ティリア「えっ！？あ、	
+9D-0E	story	　ティリア「えっ！？あ、	Tiria: Wha?! Oh, n-no, nothing at all~
 9D-0F	story	　ううん、なんでもないわよ〜」{end}	
-9D-10	story	　バング「まっ、とにかく去年	
+9D-10	story	　バング「まっ、とにかく去年	Bang: Anyway, I missed out last year, so I'm gonna cause double the havoc to make up for it!!
 9D-11	story	　参加できなかった分、	
 9D-12	story	　あばれてやるぜぇ！！」{wait}	
-9D-13	story	　ティリア「幸せな奴…」{end2}	
+9D-13	story	　ティリア「幸せな奴…」{end2}	Tiria: Blissful idiot...
 9D-14	data	　　　　　　　　　　{raw:0008.0000.0018.0000}	
 9D-15	data	　　　　　　　　　　{raw:0008.0000.0018.0000}	
 9D-16	data	　　　　　　　　　　{raw:0008.0000.0018.0000}	
@@ -63,63 +63,63 @@ id	kind	jp	en
 9D-3D	data	　　　　　　　　　　{raw:0008.0000.0018.0000}	
 9D-3E	data	　　　　　　　　　　{raw:0008.0000.0018.0000}	
 9D-3F	data	　　　　　　　　　　{raw:0008.0000.0018.0000}	
-9D-40	story	　バング「おっしゃっ！これから	
+9D-40	story	　バング「おっしゃっ！これから	Bang: Awright! The finals are next! I'm all fired up now!!
 9D-41	story	　本戦か！のってきたぜぇ！！」{wait}	
-9D-42	story	　ティリア「ハイハイ」{end}	
-9D-43	story	　バング「なに怒ってんだよ…	
+9D-42	story	　ティリア「ハイハイ」{end}	Tiria: Yeah, yeah.
+9D-43	story	　バング「なに怒ってんだよ…	Bang: What're you so mad about... Oh, I get it. Heh heh, you had the bad luck of runnin' into yours truly and lost, didn't ya?
 9D-44	story	　あ、そうか、へへーん、おめぇ	
 9D-45	story	　俺様と運悪くあたっちまって	
 9D-46	story	　負けちまったんだっけな。{wait}	
-9D-47	story	　まぁ、安心しろ。俺様が	
+9D-47	story	　まぁ、安心しろ。俺様が	Well, relax. Once I win, I'll at least treat ya to somethin'.
 9D-48	story	　優勝したら何かおごってやる	
 9D-49	story	　ぐらいはしてやっからよ」{wait}	
-9D-4A	story	　ティリア「あんたが優勝できる	
+9D-4A	story	　ティリア「あんたが優勝できる	Tiria: I don't think for one second that you can win! There's an amaaazing fighter in it this time, you know!
 9D-4B	story	　なんて、これっぽっちも	
 9D-4C	story	　思っちゃいないわよ！	
 9D-4D	story	　なんたって今回はすごーい人が	
 9D-4E	story	　でてるんですからね」{end}	
-9D-4F	story	　バング「そーだな、やっぱり	
+9D-4F	story	　バング「そーだな、やっぱり	Bang: Yeah, first thing I want is a big bellyful of good grub. Then I'll figure out what to do with the rest.
 9D-50	story	　まず、うまいメシが腹いっぱい	
 9D-51	story	　食いてーよな。それから残りの	
 9D-52	story	　使いみちを考えよう」{wait}	
-9D-53	story	　ティリア「き…	
+9D-53	story	　ティリア「き…	Tiria: H-he's not even listening...
 9D-54	story	　聞いちゃいない…」{end2}	
-9D-80	story	　バング「なんでオヤジがこんな	
+9D-80	story	　バング「なんでオヤジがこんな	Bang: What the heck are you doin' here, Pops?!!
 9D-81	story	　とこにいるんだよ！！」{wait}	
-9D-82	story	　ジェイルランス「ふふ…バング	
+9D-82	story	　ジェイルランス「ふふ…バング	Jail Lance: Heh heh... Bang... You've grown strong...
 9D-83	story	　…強くなったな…」{wait}	
-9D-84	story	　バング「あったりめぇよ！！	
+9D-84	story	　バング「あったりめぇよ！！	Bang: Darn right!! That's what ya get for underestimatin' the great Bang's power!
 9D-85	story	　この俺様の力をみくびっていや	
 9D-86	story	　がるから負けちまうんだよ！」{wait}	
-9D-87	story	　ティリア「…はたして	
+9D-87	story	　ティリア「…はたして	Tiria: ...Oh, is that so...?
 9D-88	story	　そうかしら…」{wait}	
-9D-89	story	　バング「え？」{wait}	
-9D-8A	story	　ティリア「商店街のみなさん、	
+9D-89	story	　バング「え？」{wait}	Bang: Huh?
+9D-8A	story	　ティリア「商店街のみなさん、	Tiria: Okay, everyone from the market street, he's all yours!!
 9D-8B	story	　どーぞ！！」{end}	
-9D-8C	story	　バング「な、なにすんだよ、	
+9D-8C	story	　バング「な、なにすんだよ、	Bang: Wh-what're you doin'?! Lemme go, dammit!! ...Hey, Tiria!! Give that back, you thief!
 9D-8D	story	　離せよこらぁー！！…あ、こら	
 9D-8E	story	　ティリア！！返せドロボー！」{wait}	
-9D-8F	story	　ティリア「ドロボーは	
+9D-8F	story	　ティリア「ドロボーは	Tiria: Who's the thief here?! Wrecking shops, eating and running, causing the whole village nothing but trouble!
 9D-90	story	　どっちよ！店は壊すわ、	
 9D-91	story	　食い逃げはするわ、さんざん	
 9D-92	story	　村の人に迷惑かけて！{wait}	
-9D-93	story	　…というわけで、この賞金は	
+9D-93	story	　…というわけで、この賞金は	...So I'll be holding on to this prize money as compensation for all the trouble you caused the shopkeepers.
 9D-94	story	　商店街のみなさんへの迷惑料と	
 9D-95	story	　して私のほうであずかって	
 9D-96	story	　おくわ」{wait}	
-9D-97	story	　商人たち「おーっ！さすが	
+9D-97	story	　商人たち「おーっ！さすが	Shopkeepers: Ooh! That's our Tiria-chan!! Let's go get something tasty to eat right away!!
 9D-98	story	　ティリアちゃん！！さっそく	
 9D-99	story	　おいしいものでも食べに	
 9D-9A	story	　行きましょう！！」{wait}	
-9D-9B	story	　ティリア「賛成ー！！	
+9D-9B	story	　ティリア「賛成ー！！	Tiria: Yeees!! Let's go, let's go!!
 9D-9C	story	　行きましょ、行きましょ！！」{end}	
-9D-9D	story	　バング「あ、こら、待てぇ！！	
+9D-9D	story	　バング「あ、こら、待てぇ！！	Bang: Hey, wait!! Don't leave me behind!
 9D-9E	story	　俺をおいていくんじゃねぇ！」{wait}	
-9D-9F	story	　ティリア「だいじょーぶ！	
+9D-9F	story	　ティリア「だいじょーぶ！	Tiria: Don't worry! You won't be alone~ Some scaaary people from the Central Government will be coming to pick you up soon~
 9D-A0	story	　あんたはひとりじゃないわよ〜	
 9D-A1	story	　そのうち中央政府のこわ〜い	
 9D-A2	story	　人達があんたをむかえに	
 9D-A3	story	　くるからね〜」{wait}	
-9D-A4	story	　バング「ふざけんな	
+9D-A4	story	　バング「ふざけんな	Bang: Gimme a break, dammiiit!! ......The star here... is the great Bang!!
 9D-A5	story	　ばかやろおぉぉっっ！！…	
 9D-A6	story	　…主役は…俺様だあぁ！！」{end2}	

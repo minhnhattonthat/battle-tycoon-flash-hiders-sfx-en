@@ -65,7 +65,7 @@ def check_block(block, rows):
         end = end_of(block, id_, kind)
         if used_cols(top, bot) > end:
             errs.append(f"{id_}: {used_cols(top, bot)} columns > {end}: {en!r}")
-        if slots_of(en, enc) != slots_of(jp, enc):
+        if block != tilemap.CREDITS and slots_of(en, enc) != slots_of(jp, enc):  # credits: no menu cells
             errs.append(f"{id_}: YES/NO or cursor cells moved (keep them where the Japanese has them): {en!r}")
         ctrl = [m[0] for m in tilemap.TOKEN.finditer(jp) if m[0] in tilemap.CTRL_ENC]
         if [m[0] for m in tilemap.TOKEN.finditer(en) if m[0] in tilemap.CTRL_ENC] != ctrl:

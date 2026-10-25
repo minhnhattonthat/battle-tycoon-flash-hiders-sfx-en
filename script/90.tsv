@@ -1,24 +1,24 @@
 id	kind	jp	en
-90-00a	name	　バング	
-90-00b	name	　ティリア	
-90-01a	name	　オットー	
-90-01b	name	　ハーマン	
-90-02a	name	　スピノザ	
-90-02b	name	　カルナーサ	
-90-03a	name	　シーナ	
-90-03b	name	　ガストン	
-90-04a	name	　パチェット	
-90-05	menu	　おっ、がんばってる	
-90-06	menu	　みたいだね{wait}	
-90-07	menu	　ゆっくり	
-90-08	menu	　休んでってくんな{end2}	
-90-09	menu	　優勝、期待してるよ！{end2}	
-90-0B	menu	　それじゃ、ごゆっくり{end2}	
-90-0D	menu	　他に何かあるかい？{end2}	
-90-0F	menu	　▼ステータスを見る	
-90-10	menu	　<▲▼>オプションに入る	
-90-11	menu	　<▲▼>時間を進める	
-90-12	menu	　▲宿舎を出る	
-90-13	menu	　▼ステータスを見る	
-90-14	menu	　<▲▼>オプションに入る	
-90-15	menu	　▲宿舎を出る	
+90-00a	name	　バング	　Bang
+90-00b	name	　ティリア	　Tiria
+90-01a	name	　オットー	　Ottoh
+90-01b	name	　ハーマン	　Harman
+90-02a	name	　スピノザ	　Spenoza
+90-02b	name	　カルナーサ	　Calnarsa
+90-03a	name	　シーナ	　Seena
+90-03b	name	　ガストン	　Guston
+90-04a	name	　パチェット	　Pachet
+90-05	menu	　おっ、がんばってる	　Hey, you've been
+90-06	menu	　みたいだね{wait}	　working hard, eh?{wait}
+90-07	menu	　ゆっくり	　Kick back and
+90-08	menu	　休んでってくんな{end2}	　rest up a while.{end2}
+90-09	menu	　優勝、期待してるよ！{end2}	　Go win it, champ!{end2}
+90-0B	menu	　それじゃ、ごゆっくり{end2}	　Okay, rest easy.{end2}
+90-0D	menu	　他に何かあるかい？{end2}	　Anything else?{end2}
+90-0F	menu	　▼ステータスを見る	　▼View Status
+90-10	menu	　<▲▼>オプションに入る	　<▲▼>Options
+90-11	menu	　<▲▼>時間を進める	　<▲▼>Pass Time
+90-12	menu	　▲宿舎を出る	　▲Leave the Lodge
+90-13	menu	　▼ステータスを見る	　▼View Status
+90-14	menu	　<▲▼>オプションに入る	　<▲▼>Options
+90-15	menu	　▲宿舎を出る	　▲Leave the Lodge

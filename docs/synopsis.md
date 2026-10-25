@@ -22,7 +22,7 @@ finals, 3 = the ending after winning. One script block per fighter:
 | A1 | Spenoza | Polite Chairman of the Central Government (full name Spenoza Thunderhead). Bang forgets who he is (pun 主席/歯石); Harman vows to "push him down... I mean, take him down". 3: he wins and saves face; Tiria calls him "Chairman Spenoza Bomberhead". |
 | A2 | Calnarsa | Man-hungry tough woman with sidekicks Rira and Rei. Falls for Jail Lance, who only ogles bouncing chests; she wants the prize for chest surgery. 3: she has it, finds Jail Lance with Tiria (and a beaten-up Bang). |
 | A3 | Seena | Her master Dairufa fell for a scam and fell into debt, so he sent her to work as Spenoza's secretary; she enters to pay the debt. 3: she wins, but Dairufa already signed her to a two-year government contract. |
-| A4 | Guston | Old Great War veteran, out of step with the times; L.A. (the referee, a little girl) calls him scrap iron. 3: Spenoza visits the champion - not to hire him but to bill him for the roads he cracked. |
+| A4 | Guston | Old Great War veteran, out of step with the times; L.A. (the referee, a little boy) calls him scrap iron. 3: Spenoza visits the champion - not to hire him but to bill him for the roads he cracked. |
 | A5 | Pachet | A woman who flirts with anyone pretty (Spenoza, Harman, Seena). 3: Seena only blushed because Spenoza's face came close; Pachet, spurned, turns on Harman ("you'll do!"). |
 
 Recurring relationships: Bang <-> Tiria (bickering childhood minder), Jail Lance = Bang's father, Ottoh + Harman =

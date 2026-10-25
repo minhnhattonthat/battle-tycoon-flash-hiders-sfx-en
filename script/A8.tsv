@@ -1,43 +1,43 @@
 id	kind	jp	en
-A8-00	menu	　ゲームスタート	
-A8-01	menu	　ファイル管理センター	
-A8-02	menu	　メインマップ	
-A8-03	menu	　アイテムショップ	
-A8-04	menu	　闇闘技場	
-A8-05	menu	　中央ゲート	
-A8-06	menu	　選手宿舎	
-A8-07	menu	　ビジュアルあ	
-A8-08	menu	　ビジュアルい	
-A8-09	menu	　ビジュアルう	
-A8-0A	menu	　エンディング	
-A8-0B	menu	　ゲームオーバー	
-A8-0C	menu	　バトルタイクーン会場	
-A8-10	menu	　　　　　　　　　を	
-A8-11	menu	　手に入れた！	
-A8-12	menu	　そうびをかえますか？	
+A8-00	menu	　ゲームスタート	　Game Start
+A8-01	menu	　ファイル管理センター	　File Center
+A8-02	menu	　メインマップ	　Main Map
+A8-03	menu	　アイテムショップ	　Item Shop
+A8-04	menu	　闇闘技場	　Underground Arena
+A8-05	menu	　中央ゲート	　Central Gate
+A8-06	menu	　選手宿舎	　Fighters' Lodge
+A8-07	menu	　ビジュアルあ	　Visual 1
+A8-08	menu	　ビジュアルい	　Visual 2
+A8-09	menu	　ビジュアルう	　Visual 3
+A8-0A	menu	　エンディング	　Ending
+A8-0B	menu	　ゲームオーバー	　Game Over
+A8-0C	menu	　バトルタイクーン会場	　Battle Tycoon Venue
+A8-10	menu	　　　　　　　　　を	　　　　　　　　　
+A8-11	menu	　手に入れた！	　obtained!
+A8-12	menu	　そうびをかえますか？	　Change equipment?
 A8-13	menu	　　　　　ＹＥＳ／ＮＯ	
-A8-14	menu	　ファイルをセーブしま	
-A8-15	menu	　すか？　ＹＥＳ／ＮＯ	
-A8-20a	item	プラズマナックル	
-A8-21a	item	デストロイアーム	
-A8-22a	item	クイーンナックル	
-A8-23a	item	スパイラルバトン	
-A8-24a	item	ハリケーンアーム	
-A8-25a	item	エクスカリバー	
-A8-27a	item	ウォリアーベスト	
-A8-28a	item	マジカルパンツ	
-A8-29a	item	フルアーマー	
-A8-2Aa	item	オメガボンテージ	
-A8-2Ba	item	オーラタキシード	
-A8-2Ca	item	シリコンアーマー	
-A8-2Da	item	バンパイドドレス	
-A8-2Ea	item	チタンアーマー	
-A8-2Fa	item	キラーレオタード	
-A8-31a	item	マッハスニーカー	
-A8-32a	item	マジカルバッシュ	
-A8-33a	item	マグネットコート	
-A8-34a	item	ミラージュブーツ	
-A8-35a	item	サンダーシューズ	
-A8-36a	item	ハードスプリング	
-A8-37a	item	ストリームブーツ	
-A8-38a	item	ハイパーローラー	
+A8-14	menu	　ファイルをセーブしま	　Save your file
+A8-15	menu	　すか？　ＹＥＳ／ＮＯ	　now?    ＹＥＳ／ＮＯ
+A8-20a	item	プラズマナックル	Plasma Knuckle
+A8-21a	item	デストロイアーム	Destroy Arm
+A8-22a	item	クイーンナックル	Queen Knuckle
+A8-23a	item	スパイラルバトン	Spiral Baton
+A8-24a	item	ハリケーンアーム	Hurricane Arm
+A8-25a	item	エクスカリバー	Excalibur
+A8-27a	item	ウォリアーベスト	Warrior Vest
+A8-28a	item	マジカルパンツ	Magical Pants
+A8-29a	item	フルアーマー	Full Armor
+A8-2Aa	item	オメガボンテージ	Omega Bondage
+A8-2Ba	item	オーラタキシード	Aura Tuxedo
+A8-2Ca	item	シリコンアーマー	Silicon Armor
+A8-2Da	item	バンパイドドレス	Vampire Dress
+A8-2Ea	item	チタンアーマー	Titanium Armor
+A8-2Fa	item	キラーレオタード	Killer Leotard
+A8-31a	item	マッハスニーカー	Mach Sneakers
+A8-32a	item	マジカルバッシュ	Magical Kicks
+A8-33a	item	マグネットコート	Magnet Coat
+A8-34a	item	ミラージュブーツ	Mirage Boots
+A8-35a	item	サンダーシューズ	Thunder Shoes
+A8-36a	item	ハードスプリング	Hard Spring
+A8-37a	item	ストリームブーツ	Stream Boots
+A8-38a	item	ハイパーローラー	Hyper Roller

@@ -4,6 +4,7 @@
     python -X utf8 tools/batches.py check b003       validate work/tl/b003.out.tsv; prints OK or one line per error
     python -X utf8 tools/batches.py merge b001 b003  check, then write the English into script/*.tsv
     python -X utf8 tools/batches.py pairs b003       work/tl/b003.pairs.txt for the reviewer
+    python -X utf8 tools/batches.py credits          work/tl/AF.out.tsv (hand-made) -> script/AF.tsv, centred
 
 Batches: b001 menus (47 90 91 92 A8), b002 names + items (one entry per distinct Japanese name, merged into every
 copy), then one per story block 9D-A5. Credits (AF) are laid out by hand. Entries hide the layout: menu text without
@@ -109,6 +110,11 @@ def glossary():
     return out
 
 
+def has_term(jp, term):
+    """`term` in `jp` as a whole katakana run (レイ is not in フレイム); kanji terms match anywhere."""
+    return re.search(rf"(?<![ァ-ヺー]){re.escape(term)}(?![ァ-ヺー])", jp) is not None
+
+
 def read_batch(name):
     lines = (TL / f"{name}.tsv").read_text(encoding="utf-8").splitlines()
     return [tuple(line.split("\t")) for line in lines if line and not line.startswith("id\t")]
@@ -201,7 +207,7 @@ def check(name, rows=None):
         ctx = en if form != "menu" and form != "choice" else " ".join(
             en_of.get(e[0], "") for e in entries_in[max(k - 1, 0):k + 2])
         for gjp, gen, avoid in gloss:
-            if gjp in jp and gen.lower() not in ctx.lower():
+            if has_term(jp, gjp) and gen.lower() not in ctx.lower():
                 errs.append(f"{id_}: glossary {gjp} -> {gen!r} missing")
             for a in avoid:
                 if re.search(rf"\b{re.escape(a)}\b", en):
@@ -231,6 +237,30 @@ def merge(names):
     print(f"merged {' '.join(names)}")
 
 
+def center(en, par):
+    """Credits line centred in the 32 tile columns (odd-column rows: 30, one column in): blank slots + a space."""
+    width = 30 if par else 32
+    lead = max(width - len(en), 0) // 2
+    return tilemap.BLANK * (lead // 2) + " " * (lead % 2) + en
+
+
+def credits():
+    """work/tl/AF.out.tsv (`id<TAB>English`, by hand) -> script/AF.tsv, each line centred; an empty English blanks
+    the row (the staff roll puts surname and given name in two rows; the English full name takes one)."""
+    path = ROOT / "script" / "AF.tsv"
+    en_of = {i.strip(): en for i, _, en in (line.partition("\t") for line in
+                                            (TL / "AF.out.tsv").read_text(encoding="utf-8").splitlines())
+             if i.strip()}
+    rows = read_tsv(path)
+    unknown = set(en_of) - {r[0] for r in rows if r[1] == "credit"}
+    if unknown:
+        sys.exit(f"not credit rows: {sorted(unknown)}")
+    rows = [(i, k, jp, (center(en_of[i].strip(), i.endswith(".1")) or tilemap.BLANK) if i in en_of else en)
+            for i, k, jp, en in rows]
+    path.write_text("\n".join([HEADER] + ["\t".join(x) for x in rows]) + "\n", encoding="utf-8", newline="\n")
+    print(f"credits: {len(en_of)} rows")
+
+
 def split():
     TL.mkdir(parents=True, exist_ok=True)
     if any(TL.glob("b*.tsv")):
@@ -244,8 +274,7 @@ def split():
             "id\tspeaker\tform\tlimit\tjp\n" + "".join("\t".join(e) + "\n" for e in batch),
             encoding="utf-8", newline="\n")
         text = "".join(e[4] for e in batch)
-        # shortcut: substring match; fine while every glossary JP is a whole name/term, revisit for short kana terms
-        terms = [f"{j}\t{e}" for j, e, _ in gloss if j in text]
+        terms = [f"{j}\t{e}" for j, e, _ in gloss if has_term(text, j)]
         (TL / f"{name}.terms.txt").write_text("\n".join(terms) + "\n", encoding="utf-8", newline="\n")
         print(f"{name}: {len(batch)} entries, {len(text)} JP chars, {len(terms)} terms")
 
@@ -276,6 +305,8 @@ def main(argv):
         return int(bad)
     elif cmd == "merge":
         merge(names)
+    elif cmd == "credits":
+        credits()
     elif cmd == "pairs":
         for name in names:
             pairs(name)

@@ -2,8 +2,19 @@
 
 Updated at the end of every session. Keep it to what the next session needs; history is in git.
 
-- **Phase:** 5 (engine spike + marker build) done; next is phase 6 (translate). `build/bt_en.sfc` = original (no
-  `en` yet); `build/bt_marker.sfc` = marker build.
+- **Phase:** 6 (translate) done; next is phase 7 (insert, fit, check). `build/bt_en.sfc` = full English build
+  (every text block 47 90 91 92 9D-A5 A8 AF B0), smoke ok, 57/57 warp scenes (`regen.py --rom build/bt_en.sfc
+  --tag en`, shots `work/qa/warp-en/`); `build/bt_marker.sfc` = marker build.
+- **Phase 6 (2026-10-26):** `tools/batches.py` (split -> `work/tl/b001..b011`, check, merge, pairs, credits).
+  b001 menus, b002 names + items (one name per item, merged into 92/A8/B0), b003-b011 story per fighter; credits
+  AF by hand (`batches.py credits`, centred, full name on the `.0` row). 3 translator + 4 reviewer agents: all
+  batches check OK, reviewers approved, the two Important findings (A1 pun, A1-49) fixed. Minors deferred:
+  `docs/reviews/phase6-minors.md` (polish pass). Briefs `docs/translator-brief.md`, `reviewer-brief.md`;
+  `docs/synopsis.md`, `docs/style-reference.md`; glossary filled (enforced by the check); D9 (story `Name: text`),
+  D10 (File Center). `insert.wrap_page` now counts ♥/<sweat>/<anger> as a whole slot.
+- **Phase 7 to-do:** `romdiff.py` with the build's write log (allowed ranges); 91-05 drops "Welcome" (one 20-letter
+  line: check whether code shows 91-05/06 as a two-line box so line 06 could carry it - would need a new script
+  row and an extract/rebuild exception); eye-check credits layout over the whole roll and the A0-11/16 dot pages.
 - **Done:**
   - Step 0 repo setup (rom pin, MesenCE in `tools/mesen/`, guard hook, pre-commit -> `tools/check.py`).
   - Phase 1: no prior patch exists. All text is pre-built BG3 tilemaps inside 179 compressed resources
@@ -43,15 +54,6 @@ Updated at the end of every session. Keep it to what the next session needs; his
     torture line + 8-line page in `build/bt_qa.sfc` (story_bang_1). Width gate: `docs/re/windows.md` (message 20,
     popup 18, item 16, name 14, story 30 x 5, credits 32). warp.lua fix: a queued mash press entering the place
     under the cursor before the forced place (Pachet/Harman story warps failed on the marker ROM).
-- **Next (phase 6, translate):** write `docs/translator-brief.md` + `docs/reviewer-brief.md` from the skill assets
-  (the agent types read them) with this repo's rules: `script/README.md` §English column, budgets in
-  `docs/re/windows.md`, check command `python -X utf8 tools/lint.py`; glossary names first (`glossary.md`).
-  Batches from `script/*.tsv` into `work/tl/`, merge back into the `en` column.
-- **Notes for phase 6:** the batch check must not demand `{raw:...}` tokens in EN (A4-83 has one, a half-shifted
-  comma); `data` rows are never translated. Staff names in credits (AF) are kanji only: readings need a source
-  (official credits listing / MobyGames) before romanising, don't guess. Item names repeat across 92/A8/B0: one
-  English name per item, <= 16 letters. A block goes fully English at once (its kanji cells hold the English
-  glyphs), so translate every non-data row of a block before building it for play.
 - **Phase 8 to-do from the tour:** tournament win/lose screens and the item-get prompt after a win are not in the
   scene list yet (need a GOD/auto-win cheat on top of `venue_battle`); res AA name/birthday tiles never seen on
   screen (check whether any code draws them). From phase 5 (guesses in `docs/re/windows.md`): 47-0D (name drawn

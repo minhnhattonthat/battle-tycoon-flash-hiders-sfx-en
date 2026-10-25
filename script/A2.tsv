@@ -1,88 +1,88 @@
 id	kind	jp	en
-A2-00	story	　カルナーサ「さて、受付も	
+A2-00	story	　カルナーサ「さて、受付も	Calnarsa: Well, now that registration's done, guess I'll head into town and find me a nice hunk of a man!
 A2-01	story	　済ませたことだし、	
 A2-02	story	　街にでも行ってイイ男でも	
 A2-03	story	　見つけてくるかね！」{wait}	
-A2-04	story	　リラ「はーい、がんばって	
+A2-04	story	　リラ「はーい、がんばって	Rira: Okaaay, good luck, Onee-samaaa~
 A2-05	story	　下さいねー、おねえさまぁ」{wait}	
-A2-06	story	　レイ「私たちはじゃまに	
+A2-06	story	　レイ「私たちはじゃまに	Rei: We'll go have our date somewhere else so we don't get in your waaay~
 A2-07	story	　ならないように別の場所で	
 A2-08	story	　デートしてきますからぁ」{end}	
-A2-09	story	　カルナーサ「きーっっ！！<anger>	
+A2-09	story	　カルナーサ「きーっっ！！<anger>	Calnarsa: Grrrr!!<anger> That burns me up!!<anger> All lovey-dovey like that!! You two are gonna get it later!<anger>
 A2-0A	story	　くやしーっっ！！<anger>	
 A2-0B	story	　ベタベタしやがってぇぇ！！	
 A2-0C	story	　おまえたち後でおしおきして	
 A2-0D	story	　やるからね<anger>{wait}	
-A2-0E	story	　人の話をきけー…って、あら？{end}	
-A2-0F	story	　いい男…♥もろ好みだわ…♥	
+A2-0E	story	　人の話をきけー…って、あら？{end}	Listen when I'm talkin'... Huh? Oh?
+A2-0F	story	　いい男…♥もろ好みだわ…♥	What a man...♥ Just my type...♥ So that gentleman's entering too♥ Alright, I gotta give it my all too!
 A2-10	story	　あのお方も参加なさるのね♥	
 A2-11	story	　よしっ、あたいも	
 A2-12	story	　頑張らなきゃね！」{end2}	
-A2-40	story	　カルナーサ「あっ！	
+A2-40	story	　カルナーサ「あっ！	Calnarsa: Ah! It's him! ...He's always so dreamy...♥
 A2-41	story	　あのお方だわ！…いつ見ても	
 A2-42	story	　素敵ねぇ…♥」{wait}	
-A2-43	story	　リラ「あー、また	
+A2-43	story	　リラ「あー、また	Rira: Aww, here she goes agaaain.
 A2-44	story	　はじまっちゃったー」{wait}	
-A2-45	story	　レイ「おねえさまの病気ー」{end}	
-A2-46	story	　ジェイルランス「むむぅ…	
+A2-45	story	　レイ「おねえさまの病気ー」{end}	Rei: Onee-sama's little condition~
+A2-46	story	　ジェイルランス「むむぅ…	Jail Lance: Mmm... Magnificent motion...
 A2-47	story	　素晴らしい動きだ…」{end}	
-A2-48	story	　リラ「お、おねえさま	
+A2-48	story	　リラ「お、おねえさま	Rira: O-Onee-sama, that old guy's getting all worked up over jiggling chests!<sweat>
 A2-49	story	　あのオジサン、胸の動きに	
 A2-4A	story	　こーふんしてますよおぉ！<sweat>」{wait}	
-A2-4B	story	　レイ「あんなスケベな人が	
+A2-4B	story	　レイ「あんなスケベな人が	Rei: You really like a pervert like thaaat? Onee-samaaa!<sweat>
 A2-4C	story	　いーんですかぁ？	
 A2-4D	story	　おねえさまぁ！<sweat>」{wait}	
-A2-4E	story	　カルナーサ「…くっ」{wait}	
-A2-4F	story	　リラ「お、おねえさま、	
+A2-4E	story	　カルナーサ「…くっ」{wait}	Calnarsa: ...Ngh.
+A2-4F	story	　リラ「お、おねえさま、	Rira: O-Onee-sama, you don't have to get so down...
 A2-50	story	　そんなに落ちこまなくても…」{wait}	
-A2-51	story	　レイ「世の中にはたくさん	
+A2-51	story	　レイ「世の中にはたくさん	Rei: There are plenty of good men in the wooorld...
 A2-52	story	　イイ男がいますからぁ…」{wait}	
-A2-53	story	　カルナーサ「くやしーっ！！」{wait}	
-A2-54	story	　リラとレイ「え？」{wait}	
-A2-55	story	　カルナーサ「あたいの胸が	
+A2-53	story	　カルナーサ「くやしーっ！！」{wait}	Calnarsa: That burns me up!!
+A2-54	story	　リラとレイ「え？」{wait}	Rira and Rei: Huh?
+A2-55	story	　カルナーサ「あたいの胸が	Calnarsa: If only my chest was rubber instead of ceramic, it'd jiggle like that too...
 A2-56	story	　セラミックじゃなく	
 A2-57	story	　ゴム製だったらあれぐらい	
 A2-58	story	　揺れるのに…」{wait}	
-A2-59	story	　リラとレイ「お、	
+A2-59	story	　リラとレイ「お、	Rira and Rei: O-Onee-sama?!<sweat>
 A2-5A	story	　おねえさま！？<sweat>」{wait}	
-A2-5B	story	　カルナーサ「よし！決めたよ！	
+A2-5B	story	　カルナーサ「よし！決めたよ！	Calnarsa: Alright! I've decided! I'm gonna win this tournament and spend the prize money on chest-remodeling surgery!!
 A2-5C	story	　あたいはこの大会で優勝して	
 A2-5D	story	　賞金で胸の改造手術を	
 A2-5E	story	　するのよおぉ！！」{wait}	
-A2-5F	story	　リラとレイ「……………<sweat><sweat>」{wait}	
-A2-60	story	　カルナーサ「なにやってんだい	
+A2-5F	story	　リラとレイ「……………<sweat><sweat>」{wait}	Rira and Rei: ...<sweat><sweat>
+A2-60	story	　カルナーサ「なにやってんだい	Calnarsa: What're ya standin' around for? We're goin' to register for the finals, you two!!
 A2-61	story	　本戦の受付にいくよ！	
 A2-62	story	　おまえたち！！」{wait}	
-A2-63	story	　リラとレイ「は、はぁ〜い、	
+A2-63	story	　リラとレイ「は、はぁ〜い、	Rira and Rei: O-Okaaay, Onee-sama!
 A2-64	story	　おねえさま！」{end2}	
-A2-80	story	　カルナーサ「バトル	
+A2-80	story	　カルナーサ「バトル	Calnarsa: With the Battle Tycoon winner's prize, I finally got it! A chest that jiggles!
 A2-81	story	　タイクーンの優勝賞金でやっと	
 A2-82	story	　手にいれたわっ！揺れる胸！」{wait}	
-A2-83	story	　リラとレイ「おめでとう	
+A2-83	story	　リラとレイ「おめでとう	Rira and Rei: Congratulaaations, Onee-sama♥
 A2-84	story	　ございまーす、おねえさま♥」{wait}	
-A2-85	story	　カルナーサ「で、色気がついた	
+A2-85	story	　カルナーサ「で、色気がついた	Calnarsa: Now that I've got some sex appeal, let's go seduce Jail Lance-sama!
 A2-86	story	　ところでジェイルランス様を	
 A2-87	story	　誘惑にいくわよっ！」{wait}	
-A2-88	story	　リラとレイ「はぁ〜い、	
+A2-88	story	　リラとレイ「はぁ〜い、	Rira and Rei: Okaaay, Onee-sama♥
 A2-89	story	　おねえさま♥」{end}	
-A2-8A	story	　カルナーサ「あの小娘は	
+A2-8A	story	　カルナーサ「あの小娘は	Calnarsa: That brat... Tiria, wasn't it...!! Snugglin' up to MY Jail Lance-sama~!<anger>
 A2-8B	story	　たしかティリア…！！	
 A2-8C	story	　あたいのジェイルランス様と	
 A2-8D	story	　イチャイチャ	
 A2-8E	story	　しやがってぇ〜っ！<anger>」{wait}	
-A2-8F	story	　リラ「あー！	
+A2-8F	story	　リラ「あー！	Rira: Ah! That thing that looks like a ratty old rag, isn't that her boyfriend?
 A2-90	story	　あのボロぞーきんみたいなの、	
 A2-91	story	　あの女の彼氏じゃない	
 A2-92	story	　ですかぁ？」{wait}	
-A2-93	story	　レイ「わかったぁ！きっと	
+A2-93	story	　レイ「わかったぁ！きっと	Rei: I get it! They must've fought over her, and Jail Lance won!!
 A2-94	story	　あの女をめぐって戦って、	
 A2-95	story	　ジェイルランスが	
 A2-96	story	　勝ったんですよー！！」{end}	
-A2-97	story	　カルナーサ「なっ、	
+A2-97	story	　カルナーサ「なっ、	Calnarsa: Wh-whaaat?!!
 A2-98	story	　なんだってえぇ！！」{wait}	
-A2-99	story	　リラ「だってぇ、そーいう風に	
+A2-99	story	　リラ「だってぇ、そーいう風に	Rira: Well, doesn't it look like thaaat?
 A2-9A	story	　見えませんかぁー？」{wait}	
-A2-9B	story	　レイ「あ、おねえさまぁー	
+A2-9B	story	　レイ「あ、おねえさまぁー	Rei: Ah, Onee-samaaa, don't be dowwwn~
 A2-9C	story	　おちこまないで下さぁい」{end}	
-A2-9D	story	　カルナーサ「おまえたちぃ〜っ	
+A2-9D	story	　カルナーサ「おまえたちぃ〜っ	Calnarsa: You two~! Actin' like it's no skin off your noses~!
 A2-9E	story	　人のことだと思ってえ〜っ！」{end2}	

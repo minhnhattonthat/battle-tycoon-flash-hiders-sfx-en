@@ -1,67 +1,67 @@
 id	kind	jp	en
-9F-00	story	　ガストン「…お主が前回	
+9F-00	story	　ガストン「…お主が前回	Guston: ...So you're Ottoh, last year's champion?!
 9F-01	story	　優勝者のオットーか！？」{wait}	
-9F-02	story	　オットー「……………………」{wait}	
-9F-03	story	　ガストン「フン、どんな奴かと	
+9F-02	story	　オットー「……………………」{wait}	Ottoh: ...
+9F-03	story	　ガストン「フン、どんな奴かと	Guston: Hmph! I wondered what manner of fellow you'd be, but you're nothing but a big, useless lump of timber.
 9F-04	story	　思えばただ図体がデカイだけの	
 9F-05	story	　ウドの大木ではないか。{wait}	
-9F-06	story	　こんな奴が優勝者なんて	
+9F-06	story	　こんな奴が優勝者なんて	If the likes of you is champion, this tournament's standard can't amount to much.
 9F-07	story	　この大会のレベルもたかが	
 9F-08	story	　知れてるのお」{wait}	
-9F-09	story	　オットー「なん…」{end}	
-9F-0A	story	　ハーマン「なんですってえぇ！	
+9F-09	story	　オットー「なん…」{end}	Ottoh: Wha...
+9F-0A	story	　ハーマン「なんですってえぇ！	Harman: What did you saaay?! That means you're insulting me too, since I lost to Ottoh!!
 9F-0B	story	　それってばオットーに負けた	
 9F-0C	story	　私まで侮辱してることに	
 9F-0D	story	　なるじゃないのよおぉ！！」{wait}	
-9F-0E	story	　ガストン「フン、おなごに	
+9F-0E	story	　ガストン「フン、おなごに	Guston: Hmph! A mere girl couldn't possibly understand the harshness of battle.
 9F-0F	story	　戦いのキビしさがわかるわけ	
 9F-10	story	　あるまい」{wait}	
-9F-11	story	　ハーマン「うっきーっ！！	
+9F-11	story	　ハーマン「うっきーっ！！	Harman: Grrrr!! Ottoh, say something too, why don't you!!
 9F-12	story	　オットー、あんたも何か	
 9F-13	story	　言いなさいよ！！」{end}	
-9F-14	story	　オットー「……………………」{wait}	
-9F-15	story	　ガストン「ふわっはっはっ	
+9F-14	story	　オットー「……………………」{wait}	Ottoh: ...
+9F-15	story	　ガストン「ふわっはっはっ	Guston: Bwahaha! Struck a nerve, and now you can't say a word, eh? This year's title is mine for the taking!!
 9F-16	story	　図星で何も喋れんようじゃな。	
 9F-17	story	　今年の優勝はわしが	
 9F-18	story	　イタダキじゃあ！！」{end}	
-9F-19	story	　ハーマン「あ〜っ！	
+9F-19	story	　ハーマン「あ〜っ！	Harman: Aaargh! He makes me so maaad!! Ottoh, if you lose to the likes of him, I'll never forgive you! I'm the one who's going to beat you!!
 9F-1A	story	　ムカつく〜っ！！オットー、	
 9F-1B	story	　あんたあんなのに負けたら	
 9F-1C	story	　許さないわよ！あんたは私が	
 9F-1D	story	　倒すんですからねっ！！」{wait}	
-9F-1E	story	　オットー「……………………」{end2}	
-9F-40	story	　ハーマン「あのオヤジ、まだ	
+9F-1E	story	　オットー「……………………」{end2}	Ottoh: ...
+9F-40	story	　ハーマン「あのオヤジ、まだ	Harman: Looks like that old geezer's still in the running. He should've just lost already.
 9F-41	story	　勝ち残ってるみたいよ。	
 9F-42	story	　さっさと負けちゃえば	
 9F-43	story	　よかったのに」{wait}	
-9F-44	story	　オットー「……………………」{wait}	
-9F-45	story	　ハーマン「あんた、あんなのに	
+9F-44	story	　オットー「……………………」{wait}	Ottoh: ...
+9F-45	story	　ハーマン「あんた、あんなのに	Harman: If you lose to the likes of him, you'll disgrace the Central Government!! Show them how strong the Royal Guard is!! ...For me, too.
 9F-46	story	　負けたら中央政府のハジよ！！	
 9F-47	story	　親衛隊の強さを見せつけて	
 9F-48	story	　やんなさい！！…私の分まで」{wait}	
-9F-49	story	　オットー「……………………」{wait}	
-9F-4A	story	　ハーマン「何よ、何か文句	
+9F-49	story	　オットー「……………………」{wait}	Ottoh: ...
+9F-4A	story	　ハーマン「何よ、何か文句	Harman: What? Got a problem with that?!
 9F-4B	story	　あるの！？」{wait}	
-9F-4C	story	　オットー「……………………」{end}	
-9F-4D	story	　ハーマン「何でそーいちいち	
+9F-4C	story	　オットー「……………………」{end}	Ottoh: ...
+9F-4D	story	　ハーマン「何でそーいちいち	Harman: Why do you have to get on my nerves every single time, you?!
 9F-4E	story	　ムカつくのよ、あんたわっ！」{end2}	
-9F-80	story	　レポーター「今年も優勝者は	
+9F-80	story	　レポーター「今年も優勝者は	Reporter: And this year's champion is once again Ottoh!!
 9F-81	story	　オットー選手です！！」{wait}	
-9F-82	story	　オットー「……………………」{wait}	
-9F-83	story	　レポーター「今年こそは喜びの	
+9F-82	story	　オットー「……………………」{wait}	Ottoh: ...
+9F-83	story	　レポーター「今年こそは喜びの	Reporter: This year, please do give us a few words about how happy you are <sweat>
 9F-84	story	　お言葉を聞かせて下さいね<sweat>」{wait}	
-9F-85	story	　ハーマン「うっきーっ！！	
+9F-85	story	　ハーマン「うっきーっ！！	Harman: Grrrr!! So frustratiiing!! Next year I'll win for sure!! Just you wait!
 9F-86	story	　くやしーっ！！来年こそは私が	
 9F-87	story	　勝つからねーっ！！おぼえて	
 9F-88	story	　なさいっ」{wait}	
-9F-89	story	　レポーター「はいはい、わかり	
+9F-89	story	　レポーター「はいはい、わかり	Reporter: Yes, yes, I understand, now please let me interview Ottoh <sweat> Ottoh, go ahead!
 9F-8A	story	　ましたからオットー選手に	
 9F-8B	story	　インタビューさせて下さい<sweat>	
 9F-8C	story	　オットー選手、どうぞっ」{wait}	
-9F-8D	story	　オットー「……………………」{wait}	
-9F-8E	story	　ハーマン「こいつは何聞いても	
+9F-8D	story	　オットー「……………………」{wait}	Ottoh: ...
+9F-8E	story	　ハーマン「こいつは何聞いても	Harman: He won't say a word, whatever you ask him!! Let me do the talking!
 9F-8F	story	　喋んないわよ！！私に喋らせ	
 9F-90	story	　なさい！」{wait}	
-9F-91	story	　オットー「……………………」{end}	
-9F-92	story	　レポーター「そ、それでは	
+9F-91	story	　オットー「……………………」{end}	Ottoh: ...
+9F-92	story	　レポーター「そ、それでは	Reporter: W-well then, goodbye from the arena~!!
 9F-93	story	　会場からさようなら〜！！」{end2}	

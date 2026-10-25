@@ -1,28 +1,28 @@
 id	kind	jp	en
-91-00a	name	　バング	
-91-00b	name	　ティリア	
-91-01a	name	　オットー	
-91-01b	name	　ハーマン	
-91-02a	name	　スピノザ	
-91-02b	name	　カルナーサ	
-91-03a	name	　シーナ	
-91-03b	name	　ガストン	
-91-04a	name	　パチェット	
-91-05	menu	　闇闘技場へようこそ	
-91-07	menu	　今から行われる試合は	
-91-08	menu	　こうなっております	
-91-09	menu	　どちらに賭けますか？	
+91-00a	name	　バング	　Bang
+91-00b	name	　ティリア	　Tiria
+91-01a	name	　オットー	　Ottoh
+91-01b	name	　ハーマン	　Harman
+91-02a	name	　スピノザ	　Spenoza
+91-02b	name	　カルナーサ	　Calnarsa
+91-03a	name	　シーナ	　Seena
+91-03b	name	　ガストン	　Guston
+91-04a	name	　パチェット	　Pachet
+91-05	menu	　闇闘技場へようこそ	　Underground Arena!
+91-07	menu	　今から行われる試合は	　The upcoming match
+91-08	menu	　こうなっております	　is as follows.
+91-09	menu	　どちらに賭けますか？	　Who will you bet on?
 91-0A	menu	　▼	
 91-0B	menu	　▲	
-91-0D	menu	　おやめになりますか？	
+91-0D	menu	　おやめになりますか？	　Cancel your bet?
 91-0E	menu	　　　　　ＹＥＳ／ＮＯ	
-91-0F	menu	　またおこしください	
-91-11	menu	　いかほど賭けますか？	
-91-13	menu	　では試合をはじめます	
-91-15	menu	　おめでとうございます	
-91-16	menu	　払い戻し金をどうぞ	
-91-17	menu	　ざんねんでしたね	
-91-19	menu	　今の試合はドローと	
-91-1A	menu	　なりました	
-91-1B	menu	　もういちど試合を	
-91-1C	menu	　行います	
+91-0F	menu	　またおこしください	　Please come again.
+91-11	menu	　いかほど賭けますか？	　How much to wager?
+91-13	menu	　では試合をはじめます	　Let the match begin.
+91-15	menu	　おめでとうございます	　Congratulations!
+91-16	menu	　払い戻し金をどうぞ	　Here is your payout.
+91-17	menu	　ざんねんでしたね	　How unfortunate.
+91-19	menu	　今の試合はドローと	　That match ended
+91-1A	menu	　なりました	　in a draw.
+91-1B	menu	　もういちど試合を	　The match will be
+91-1C	menu	　行います	　fought again.

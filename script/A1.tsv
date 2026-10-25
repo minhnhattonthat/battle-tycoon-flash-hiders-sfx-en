@@ -1,49 +1,49 @@
 id	kind	jp	en
-A1-00	story	　スピノザ「あ、バングさん」{wait}	
-A1-01	story	　バング「…ん？」{wait}	
-A1-02	story	　スピノザ「今回はあなたも	
+A1-00	story	　スピノザ「あ、バングさん」{wait}	Spenoza: Ah, Bang-san.
+A1-01	story	　バング「…ん？」{wait}	Bang: ...Hm?
+A1-02	story	　スピノザ「今回はあなたも	Spenoza: You'll be competing this time too, I take it?
 A1-03	story	　出場されるのでしょう？」{end}	
-A1-04	story	　バング「…ティリア、	
+A1-04	story	　バング「…ティリア、	Bang: ...Tiria, who's this guy?
 A1-05	story	　こいつだれだ？」{wait}	
-A1-06	story	　ティリア「何、	
+A1-06	story	　ティリア「何、	Tiria: How could you forget?! It's Chairman Spenoza of the Central Government! We met him last year!
 A1-07	story	　ド忘れしてんのよ！中央政府の	
 A1-08	story	　スピノザ主席でしょ、去年	
 A1-09	story	　会ったじゃない」{wait}	
-A1-0A	story	　バング「あぁ、あの	
+A1-0A	story	　バング「あぁ、あの	Bang: Ohh, Chairman Spinach... The green stuff that gets stuck in your teeth...
 A1-0B	story	　歯につく…」{end}	
-A1-0C	story	　ティリア「それは歯石でしょ！	
+A1-0C	story	　ティリア「それは歯石でしょ！	Tiria: That's spinach! It's Spenoza! Come on, hurry up or registration's gonna close! Geez...
 A1-0D	story	　ほら、さっさと行かないと	
 A1-0E	story	　受け付け終わっちゃうじゃ	
 A1-0F	story	　ないの、もー」{end}	
-A1-10	story	　スピノザ「去年会った時は	
+A1-10	story	　スピノザ「去年会った時は	Spenoza: I lost when we met last year, but this year I won't...
 A1-11	story	　負けましたが、今年はそうは…{end}	
-A1-12	story	　…あれ？」{end2}	
-A1-40	story	　スピノザ「あ、ハーマン」{wait}	
-A1-41	story	　ハーマン「あ！スピノザ様♥	
+A1-12	story	　…あれ？」{end2}	...Huh?
+A1-40	story	　スピノザ「あ、ハーマン」{wait}	Spenoza: Ah, Harman.
+A1-41	story	　ハーマン「あ！スピノザ様♥	Harman: Oh! Spenoza-sama♥ Congratulations on making it through the prelims!
 A1-42	story	　予戦通過	
 A1-43	story	　おめでとうございます！」{wait}	
-A1-44	story	　スピノザ「ハーマンとは本戦で	
+A1-44	story	　スピノザ「ハーマンとは本戦で	Spenoza: It looks like we'll face each other in the finals, Harman. Let's both give it our all.
 A1-45	story	　当たりそうですね。おたがい	
 A1-46	story	　全力でがんばりましょう」{wait}	
-A1-47	story	　ハーマン「あぁん、	
+A1-47	story	　ハーマン「あぁん、	Harman: Ohh, I'm not worthy of such kind words...♥
 A1-48	story	　もったいないお言葉…♥{wait}	
-A1-49	story	　…わかりました。私も全力で	
+A1-49	story	　…わかりました。私も全力で	...Of course. I too will give it my all to pin you down, Spenoza-sama... I mean, take you down♥
 A1-4A	story	　スピノザ様をおしたおしに	
 A1-4B	story	　…じゃなくて、たおしに	
 A1-4C	story	　いかせていただきますわ♥」{end}	
-A1-4D	story	　スピノザ「…………………<sweat>」{end2}	
-A1-80	story	　スピノザ「ふぅ…なんとか	
+A1-4D	story	　スピノザ「…………………<sweat>」{end2}	Spenoza: ......<sweat>
+A1-80	story	　スピノザ「ふぅ…なんとか	Spenoza: Phew... At least I've managed to save face as Chairman... Ah, Bang-san.
 A1-81	story	　これで主席の面目も	
 A1-82	story	　保てましたね…	
 A1-83	story	　…あ、バングさん」{wait}	
-A1-84	story	　バング「ちっ、今回はたまたま	
+A1-84	story	　バング「ちっ、今回はたまたま	Bang: Tch, I just happened to lose this time, but next time I won't!! ...Uhh, you're, um...
 A1-85	story	　負けちまったが	
 A1-86	story	　次は負けねぇぜ！…えーと…」{end}	
-A1-87	story	　ティリア「すみませんねぇ	
+A1-87	story	　ティリア「すみませんねぇ	Tiria: So sorry about him. His head's packed full of muscle...
 A1-88	story	　コイツ、頭の中が筋肉で	
 A1-89	story	　できてるもんで…{wait}	
-A1-8A	story	　…何回言ったらおぼえるの！	
+A1-8A	story	　…何回言ったらおぼえるの！	...How many times do I have to tell you?! It's Chairman Spenoza Bomberhead!
 A1-8B	story	　スピノザ	
 A1-8C	story	　ボンバーヘッド主席でしょ！」{end}	
-A1-8D	story	　スピノザ「サンダーヘッドです	
+A1-8D	story	　スピノザ「サンダーヘッドです	Spenoza: It's Thunderhead, Tiria-san.<sweat>
 A1-8E	story	　ティリアさん<sweat>」{end2}	

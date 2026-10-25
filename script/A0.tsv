@@ -1,82 +1,82 @@
 id	kind	jp	en
-A0-00	story	　ハーマン「オットー、	
+A0-00	story	　ハーマン「オットー、	Harman: Ottoh, this year won't go like last year!
 A0-01	story	　今年は去年のよーには	
 A0-02	story	　いかないわよ！」{wait}	
-A0-03	story	　オットー「…………」{wait}	
-A0-04	story	　ハーマン「私の胸が揺れてる	
+A0-03	story	　オットー「…………」{wait}	Ottoh: ...
+A0-04	story	　ハーマン「私の胸が揺れてる	Harman: Hitting me with a move while my chest was bouncing was a dirty trick!!
 A0-05	story	　スキに技かけるなんて、	
 A0-06	story	　ひきょうよ！！{wait}	
-A0-07	story	　だいたいあんた男なら	
+A0-07	story	　だいたいあんた男なら	Besides, if you're a man, you should've been so busy staring that YOU left yourself wide open!
 A0-08	story	　そこに目をうばわれて逆に	
 A0-09	story	　スキができたってよさそーな	
 A0-0A	story	　もんじゃない！」{wait}	
-A0-0B	story	　オットー「……………………」{wait}	
-A0-0C	story	　ハーマン「最近、スピノザ様は	
+A0-0B	story	　オットー「……………………」{wait}	Ottoh: ...
+A0-0C	story	　ハーマン「最近、スピノザ様は	Harman: And lately, Spenoza-sama only has eyes for that little brat of a new secretary... Oooh!! This is no fun at all <anger>
 A0-0D	story	　新しく入った秘書の	
 A0-0E	story	　小娘ばっかりかまってるし…	
 A0-0F	story	　…えーいっ！！	
 A0-10	story	　おもしろくないっ<anger>」{wait}	
-A0-11	story	　オットー「………………………	
+A0-11	story	　オットー「………………………	Ottoh: .......................\n...........................\n...........................\n...........................\n...........................
 A0-12	story	　……………………………………	
 A0-13	story	　……………………………………	
 A0-14	story	　……………………………………	
 A0-15	story	　……………………………………{wait}	
-A0-16	story	　……………………………………	
+A0-16	story	　……………………………………	...........................\n...........................\n...........................\n...........................\n...........................
 A0-17	story	　……………………………………	
 A0-18	story	　……………………………………	
 A0-19	story	　……………………………………	
 A0-1A	story	　…………………………………」{end}	
-A0-1B	story	　ハーマン「ええーいっ！！	
+A0-1B	story	　ハーマン「ええーいっ！！	Harman: Ooooh!! Say something already!! <anger>
 A0-1C	story	　何か喋らんかーいっ！！<anger>」{wait}	
-A0-1D	story	　オットー「…」{end2}	
-A0-40	story	　ハーマン「スピノザ様も	
+A0-1D	story	　オットー「…」{end2}	Ottoh: ...
+A0-40	story	　ハーマン「スピノザ様も	Harman: So you've made it through too, Spenoza-sama ♥
 A0-41	story	　勝ち進まれたのですね♥」{wait}	
-A0-42	story	　スピノザ「ええ、何とか…」{wait}	
-A0-43	story	　ハーマン「スピノザ様なら	
+A0-42	story	　スピノザ「ええ、何とか…」{wait}	Spenoza: Yes, somehow...
+A0-43	story	　ハーマン「スピノザ様なら	Harman: You're sure to win the whole thing, Spenoza-sama ♥
 A0-44	story	　優勝まちがいありませんわ♥」{wait}	
-A0-45	story	　スピノザ「そ、	
+A0-45	story	　スピノザ「そ、	Spenoza: D-do you think so...?
 A0-46	story	　そうでしょうか…」{wait}	
-A0-47	story	　ハーマン「もちろんですわ♥	
+A0-47	story	　ハーマン「もちろんですわ♥	Harman: Of course ♥ I'll lose to you on purpose, Spenoza-sama ♥
 A0-48	story	　私、スピノザ様には	
 A0-49	story	　わざと負けますわね♥」{wait}	
-A0-4A	story	　スピノザ「ははは…<sweat>」{wait}	
-A0-4B	story	　ハーマン「好きな人に華を	
+A0-4A	story	　スピノザ「ははは…<sweat>」{wait}	Spenoza: Hahaha... <sweat>
+A0-4B	story	　ハーマン「好きな人に華を	Harman: Letting the man I love take the glory... Not even a secretary is that thoughtful! Don't forget your bodyguard Harman!!
 A0-4C	story	　持たせるこの心づかい、	
 A0-4D	story	　秘書もここまでできないですわ	
 A0-4E	story	　護衛のハーマンを	
 A0-4F	story	　お忘れなく！！」{wait}	
-A0-50	story	　スピノザ「…………………<sweat>」{end2}	
-A0-80	story	　ハーマン「おーっほっほっほ！	
+A0-50	story	　スピノザ「…………………<sweat>」{end2}	Spenoza: ... <sweat>
+A0-80	story	　ハーマン「おーっほっほっほ！	Harman: Ohohoho! I did it! I finally beat Ottoh and made it to the top!!
 A0-81	story	　やったわっ！ついにオットーを	
 A0-82	story	　負かしてトップに	
 A0-83	story	　なったわっ！！」{wait}	
-A0-84	story	　オットー「……………………」{wait}	
-A0-85	story	　ハーマン「くっくっくっ	
+A0-84	story	　オットー「……………………」{wait}	Ottoh: ...
+A0-85	story	　ハーマン「くっくっくっ	Harman: Heh heh heh, well~? Frustrated, aren't you~? If you've got something to say, go ahead and say it~ Hmm~?
 A0-86	story	　どう〜？くやしいでしょ〜？	
 A0-87	story	　言いたいことがあったら	
 A0-88	story	　言ってみなさいよ〜、ん〜？」{wait}	
-A0-89	story	　オットー「……………………」{end}	
-A0-8A	story	　ハーマン「…あっ！！	
+A0-89	story	　オットー「……………………」{end}	Ottoh: ...
+A0-8A	story	　ハーマン「…あっ！！	Harman: ...Oh!! Spenoza-sama!!!
 A0-8B	story	　スピノザ様！！！」{wait}	
-A0-8C	story	　スピノザ「ハーマン…	
+A0-8C	story	　スピノザ「ハーマン…	Spenoza: Harman... I wonder what happened to what you told me the other day...
 A0-8D	story	　この前言ったことは	
 A0-8E	story	　何だったんでしょうね…」{wait}	
-A0-8F	story	　ハーマン「す、す、すみません	
+A0-8F	story	　ハーマン「す、す、すみません	Harman: I-I-I'm so sorry, Spenoza-sama!! I just got so carried away...
 A0-90	story	　スピノザ様！！私、つい夢中に	
 A0-91	story	　なってしまいまして…」{wait}	
-A0-92	story	　スピノザ「ふふっ…	
+A0-92	story	　スピノザ「ふふっ…	Spenoza: Heh... The world of combat is a harsh one... Ngh!
 A0-93	story	　勝負の世界はキビしいですね…	
 A0-94	story	　…つっ！」{wait}	
-A0-95	story	　シーナ「大丈夫ですか！？	
+A0-95	story	　シーナ「大丈夫ですか！？	Seena: Are you all right?! Spenoza-sama!!
 A0-96	story	　スピノザ様！！」{wait}	
-A0-97	story	　スピノザ「ありがとう、シーナ	
+A0-97	story	　スピノザ「ありがとう、シーナ	Spenoza: Thank you, Seena. I'm fine.
 A0-98	story	　大丈夫ですよ」{wait}	
-A0-99	story	　ハーマン「ス、	
+A0-99	story	　ハーマン「ス、	Harman: S-Spenoza-samaaa!!
 A0-9A	story	　スピノザ様ぁぁ！！」{wait}	
-A0-9B	story	　スピノザ「あ、ハーマン	
+A0-9B	story	　スピノザ「あ、ハーマン	Spenoza: Ah, Harman, don't mind me, please attend the award ceremony. I'll be heading back ahead with Seena.
 A0-9C	story	　あなたは気にせず表彰式に	
 A0-9D	story	　参加して下さい。私はシーナと	
 A0-9E	story	　一緒にさきにもどりますので」{wait}	
-A0-9F	story	　ハーマン「ああっ！	
+A0-9F	story	　ハーマン「ああっ！	Harman: Aaah! Waaait!! Don't leave me, Spenoza-samaaa!!
 A0-A0	story	　待って〜っ！！捨てないでぇぇ	
 A0-A1	story	　スピノザ様ぁぁ！！」{end2}	
