@@ -9,7 +9,7 @@ all 179 resources in table order walks 0x0B0000-0x1F9D51 with no gap or overlap.
   bank16 + `$CB`. Entry 0xB3 onwards is not a resource.
 - Loaders (bank C0): `C0:0E48` A = id, decompress to VRAM at the current `$2116` address; `C0:1039` A = id,
   decompress to WRAM `[$48]` (bank in `$4A`, usually `$7F`). Both read the table directly. Static call sites:
-  `python -X utf8 tools/res_callers.py` (LDA #id / JSR). Story chapters load their font + text by computed id
+  `python -X utf8 tools/res_callers.py` (LDA #id / JSR). Story scenes load their font + text by computed id (character `$093A`/2)
   (C0:BF62.. region, `$93`, `$94+n`, `$9D+n`). Runtime log of every load: `tools/lua/reslog.lua`.
 
 ## Format

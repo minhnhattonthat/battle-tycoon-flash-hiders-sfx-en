@@ -17,7 +17,7 @@ the BG3 map. So relative search and Shift-JIS scans find nothing (tried: 0 hits)
   selection code needs no change.
 
 ## Story typewriter (C1:C9B8-CB41) - verified (disassembly + DMA log, state `work/qa/adv2/s001800.mss`)
-- The chapter text block goes to 7F:A000 (0x6000 bytes); the current page is copied to 7F:8000. Pointer `$044B`
+- The character's story block goes to 7F:A000 (0x6000 bytes); the current page is copied to 7F:8000. Pointer `$044B`
   = current line in 7F (+0x80 per line), `$044F` = character index 0-15 in the line, `$044D` = VRAM word address
   of the line (starts 7C40 = BG3 row 2).
 - Each step reads the **top-left word** of character i (`[$044B + 4*i]`), then:
@@ -41,7 +41,7 @@ the BG3 map. So relative search and Shift-JIS scans find nothing (tried: 0 hits)
 | 92 | 46 | item shop: shopkeeper (Kansai dialect), item names | 64 | 782 |
 | A8 | 46 | main map menu (places, visuals, ending, game over), item get / equip prompt, item names | 64 | 306 |
 | B0 | 46 (at VRAM word 5000) | item list, places menu, save prompt | 64 | 840 |
-| 9D-A5 | 93 + (94..9C) | story, one block per chapter (3 scenes x 16 pages of 4 lines each, 0x6000) | 192 each | ~7,400 |
+| 9D-A5 | 93 + (94..9C) | story, one block per Advance character (9D Bang ... A5 Pachet, `docs/re/debug.md`): 3 scenes (opening, before the finals, ending) x 0x2000 at 7F:A000/C000/E000 | 192 each | ~7,400 |
 | AF | AE | staff credits | 256 | 437 |
 Total ~10,400 JP characters (item names repeat across 92/A8/B0).
 

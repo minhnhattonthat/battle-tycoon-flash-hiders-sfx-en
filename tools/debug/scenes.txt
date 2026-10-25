@@ -1,0 +1,75 @@
+# Debug warp scene list for tools/debug/warp.lua.  NAME key=value ...
+#   mode=  title | modesel | vs | option | adv (default: Advance mode, new file, opening scene, then the main map)
+#   char=  Advance character 0-8: Bang Tiria Ottoh Harman Spenoza Calnarsa Seena Guston Pachet
+#          (set at new-file init C1:C4A1; $7E2134 = 2*char)
+#   rank=  0-5 ($7E2136)
+#   day=   0-8 ($7E2130; stage plate by day: 0-4 予戦, 5-6 本戦, 7 準決勝, 8 決勝 - table C1:BA9C)
+#   time=  0-4 ($7E2132; 早朝 朝 昼 夕方 夜)
+#   place= map place id ($0938 -> handler table C1:BAB4), entered by an A press on the map
+#   route= presses after arrival, FRAMES:BUTTONS,...  (e.g. 300:-,8:a)
+# Regenerate every state + proof shot: python -X utf8 tools/debug/regen.py [NAME..]
+
+# --- outside Advance mode
+intro       mode=title   route=600:-
+title       mode=title   route=900:-,6:start,300:-
+modesel     mode=modesel route=120:-
+option      mode=option  route=120:-
+vs_select   mode=vs      route=120:-
+vs_char     mode=vs      route=120:-,6:start,300:-
+com_battle  mode=vs      route=120:-,6:down,60:-,6:start,300:-,6:a,90:-,6:a,90:-,6:a,90:-,6:a,90:-,6:a,900:-
+
+# --- Advance mode places (Bang, day 1 early morning unless set)
+map               route=60:-
+map_menu          place=2  route=200:-
+file_center       place=1  route=300:-
+item_shop         place=3  route=300:-
+arena             place=4  route=300:-
+street_battle     place=5  route=400:-
+inn               place=6  route=300:-
+inn_menu          place=6  route=300:-,8:a,150:-
+inn_status        place=6  route=300:-,8:a,120:-,8:a,300:-
+inn_option        place=6  route=300:-,8:a,120:-,8:down,60:-,8:a,300:-
+file_center_menu  place=1  route=300:-,8:a,150:-
+item_shop_menu    place=3  route=300:-,8:a,150:-
+arena_menu        place=4  route=300:-,8:a,150:-
+venue             place=12 route=400:-
+venue_battle      place=12 route=400:-,6:start,900:-
+ending            place=10 route=600:-
+credits           place=13 route=600:-
+game_over         place=11 route=300:-
+
+# --- side panel: day / time / stage plates
+panel_d2_t1       day=1 time=1 place=2 route=200:-
+panel_d5_t3       day=4 time=3 place=2 route=200:-
+panel_d6_t4       day=5 time=4 place=2 route=200:-
+panel_d8_t0       day=7 time=0 place=2 route=200:-
+panel_d9_t2       day=8 time=2 place=2 route=200:-
+
+# --- story: per character, scene 1 = opening (place 7), 2 = before the finals (place 8), 3 = ending (place 9)
+story_bang_1      char=0 place=7 route=300:-
+story_bang_2      char=0 place=8 route=300:-
+story_bang_3      char=0 place=9 route=300:-
+story_tiria_1     char=1 place=7 route=300:-
+story_tiria_2     char=1 place=8 route=300:-
+story_tiria_3     char=1 place=9 route=300:-
+story_ottoh_1     char=2 place=7 route=300:-
+story_ottoh_2     char=2 place=8 route=300:-
+story_ottoh_3     char=2 place=9 route=300:-
+story_harman_1    char=3 place=7 route=300:-
+story_harman_2    char=3 place=8 route=300:-
+story_harman_3    char=3 place=9 route=300:-
+story_spenoza_1   char=4 place=7 route=300:-
+story_spenoza_2   char=4 place=8 route=300:-
+story_spenoza_3   char=4 place=9 route=300:-
+story_calnarsa_1  char=5 place=7 route=300:-
+story_calnarsa_2  char=5 place=8 route=300:-
+story_calnarsa_3  char=5 place=9 route=300:-
+story_seena_1     char=6 place=7 route=300:-
+story_seena_2     char=6 place=8 route=300:-
+story_seena_3     char=6 place=9 route=300:-
+story_guston_1    char=7 place=7 route=300:-
+story_guston_2    char=7 place=8 route=300:-
+story_guston_3    char=7 place=9 route=300:-
+story_pachet_1    char=8 place=7 route=300:-
+story_pachet_2    char=8 place=8 route=300:-
+story_pachet_3    char=8 place=9 route=300:-
