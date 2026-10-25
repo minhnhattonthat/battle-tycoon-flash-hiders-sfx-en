@@ -1,4 +1,16 @@
+import pytest
+
 import batches
+import tilemap
+
+
+def test_credit_blank_row_draws_nothing():
+    """A blanked .1 row must not carry a centring space: it would overwrite two letters of the .0 name."""
+    assert batches.center("", True) == ""
+    assert batches.center("Bang", True) == "　" * 6 + " Bang"
+    table = tilemap.load_table(tilemap.CREDITS)
+    with pytest.raises(ValueError, match="overlaps"):
+        tilemap.encode_cells(table, {(0, 0): "　" * 7 + "ab", (0, 1): "　" * 7 + " "}, {}, 0x200, font=0xAE)
 
 
 def test_menu_layout():

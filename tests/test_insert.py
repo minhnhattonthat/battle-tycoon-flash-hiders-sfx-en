@@ -41,7 +41,12 @@ def test_story_slots_never_blank_first():
 
 def test_wrap_page():
     lines = insert.wrap_page("Bang: All right!! This year I finally get to enter the Battle Tycoon!", "{wait}")
-    assert lines == ["　Bang: All right!! This year I", "　finally get to enter the", "　Battle Tycoon!{wait}"]
+    # balanced: the narrowest width with the greedy line count (greedy left "Battle Tycoon!" alone on line 3)
+    assert lines == ["　Bang: All right!! This", "　year I finally get to", "　enter the Battle Tycoon!{wait}"]
+    assert insert.wrap_page("Tiria: Yeees!! Let's go, let's go!!", "{end}")[-1] == "　go, let's go!!{end}"
+    assert insert.stub("Tiria: Yeees!! Let's go, let's go!!", "{end}") is None
+    assert insert.stub("x" * 27 + " ab", "{end}") == "ab"  # balancing cannot help: lint fails it
+    assert insert.stub("a\\nb", "{end}") is None  # a forced break is not an orphan
     assert insert.wrap_page("a\\nb", "{end}") == ["　a", "　b{end}"]
     # no room for the control slot after a 29-letter last line: its last word moves down
     assert insert.wrap_page("x" * 20 + " " + "y" * 8, "{wait}") == ["　" + "x" * 20, "　" + "y" * 8 + "{wait}"]
@@ -60,7 +65,7 @@ def test_story_rows_reflow():
     out = insert.story_rows(0x9D, rows)
     assert [r[0] for r in out] == ["9D-00", "9D-01", "9D-02", "9D-03", "9D-04"]
     assert [r[1] for r in out] == ["story"] * 4 + ["data"]
-    assert out[2][2] == "　third line, see{wait}" and out[3][2] == "　う{end2}"
+    assert out[2][2].endswith(" see{wait}") and out[3][2] == "　う{end2}"
 
 
 def test_lint_script():
@@ -75,6 +80,17 @@ def test_lint_catches():
             ("90-06", "menu", "　みたいだね{wait}", "　Hi there!")]
     errs = lint.check_block(0x47, rows)
     assert len(errs) == 3 and errs[0].startswith("47-09: 30 columns") and "moved" in errs[1] and "controls" in errs[2]
+
+
+def test_untranslated_catches():
+    rows = [("47-09", "menu", "　登録はお済みですか？", ""),
+            ("47-0A", "menu", "　　　　　ＹＥＳ／ＮＯ", ""),  # layout glyphs only: fine
+            ("47-0B", "menu", "　あなたの", "　Your 登録"),
+            ("47-0C", "menu", "　ＢＩＧ", "")]
+    errs = lint.untranslated(0x47, rows, {"47-0C"})
+    assert [e[:5] for e in errs] == ["47-0B", "47-09"]
+    story = [("9D-00", "story", "　あ{wait}", "Hi"), ("9D-01", "story", "　い{end}", "")]
+    assert lint.untranslated(0x9D, story, set()) == ["9D-01: page not translated"]
 
 
 def test_marker_fits_and_keeps_controls():

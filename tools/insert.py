@@ -22,6 +22,7 @@ from extract import read_tsv  # noqa: E402
 TORTURE = "".join(chr(c) for c in range(0x21, 0x7F)) + "  a  b"  # every glyph + double spaces (--qa)
 STORY_COLS = 30  # story line: columns 2-31 (measured: marker build, story_bang_1)
 PAGE_LINES = 5  # story lines per page (between {wait}s); Japanese maximum, raise once a longer page is proven
+STUB = 6  # a wrapped paragraph's last line under this many letters is an orphan (lint error)
 KEEP = set("ＹＥＳ／ＮＯ▼▲")  # glyphs that stay in English text (YES/NO cells and cursor rails)
 ICON = re.compile(r"♥|<sweat>|<anger>|\{\w+\}")  # cell-sized items allowed in English story text (+ controls)
 
@@ -93,7 +94,29 @@ def cols(s):
 
 def wrap_page(text, ctrl, width=STORY_COLS):
     """Page text -> story lines (`　` margin + up to `width` columns), `ctrl` in the last line's last slot.
-    A literal `\\n` forces a line break; spaces around breaks are dropped."""
+    A literal `\\n` forces a line break; spaces around breaks are dropped. Balanced: the narrowest width that
+    keeps the greedy line count, so the last line is not left with one word."""
+    best = greedy_page(text, ctrl, width)
+    for w in range(width - 1, 0, -1):
+        try:
+            alt = greedy_page(text, ctrl, w)
+        except ValueError:  # a word wider than w
+            break
+        if len(alt) > len(best):
+            break
+        best = alt
+    return best
+
+
+def stub(text, ctrl):
+    """The last line of a page's last paragraph when it wrapped and kept under STUB letters, else None."""
+    para = text.split("\\n")[-1]
+    lines = wrap_page(para, ctrl)
+    last = lines[-1].replace(ctrl, "").strip(tilemap.BLANK)
+    return last if len(lines) > 1 and cols(last) < STUB else None
+
+
+def greedy_page(text, ctrl, width):
     lines = []
     for para in text.split("\\n"):
         line = ""
@@ -132,6 +155,8 @@ def story_rows(block, rows, no_limit=()):
             page = wrap_page(en, ctrl)
             if len(page) > PAGE_LINES and prow[0][0] not in no_limit:  # --qa may test taller pages
                 raise ValueError(f"{prow[0][0]}: page wraps to {len(page)} lines > {PAGE_LINES}: {en!r}")
+            if stub(en, ctrl) and prow[0][0] not in no_limit:
+                raise ValueError(f"{prow[0][0]}: last line {stub(en, ctrl)!r} is an orphan, rephrase: {en!r}")
             lines += page
         if len(lines) > 64:
             raise ValueError(f"{block:02X} scene {scene}: {len(lines)} lines > 64")
@@ -172,14 +197,19 @@ def edits(marker_mode=False, qa=None, rom=None):
             text = story_rows(block, rows, qa)
         else:
             text = []
+            ids = {r[0] for r in rows}
             for id_, kind, jp, en in rows:
                 if id_ in qa:
                     en = qa[id_]
+                elif marker_mode and id_.endswith(".1") and id_[:-1] + "0" in ids:
+                    en = tilemap.BLANK  # the .0 row's full-width ruler covers this tile row
                 elif marker_mode and kind != "data":
                     en = marker(id_, jp, enc)
                 text.append((id_, kind, en or jp))
             if all(t[2] == r[2] for t, r in zip(text, rows)):
                 continue
+            if block == tilemap.CREDITS:  # AF-w words: half-cell pieces of the Japanese brackets, they overwrote
+                text = [t for t in text if t[1] != "data"]  # English letters (the English rows carry their own)
         size = len(tilemap.block_data(rom, block))
         out[block] = tilemap.rebuild(block, text, table, size, font)
         if font not in out:

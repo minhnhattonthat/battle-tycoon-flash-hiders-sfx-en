@@ -1,0 +1,9 @@
+# Rows left in the original glyphs on purpose (tools/lint.py fails any other row with Japanese and no English).
+# One id, then the reason.
+AF-151.1 credits "©1995 RIGHT STUFF" (the developer): already English, original large letters
+AF-154.0 credits, same line
+AF-154.1 credits, same line
+AF-172.0 credits finale "SEE YOU NEXT BATTLE・TYCOON": already English, drawn in the original large letters
+AF-172.1 credits finale, same message
+AF-175.0 credits finale, same message
+AF-178.1 credits finale, same message (・ is the original's middle dot)

@@ -1,0 +1,6 @@
+# Where build.py may write (inclusive hex, then a comment). build.verify() fails on a write outside these and runs
+# romdiff.py with the write log (docs/re/compression.md, docs/re/rom.md).
+FFDC-FFDF      header checksum complement + checksum
+10082-1034D    resource table (0xB3 entries x 4 bytes)
+B0000-1F9D4F   compressed resources (an edited one repacked into its own slot)
+300000-3FFFFF  expansion banks F0-FF (moved resources)

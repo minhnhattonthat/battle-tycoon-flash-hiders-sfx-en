@@ -5,6 +5,7 @@ Each row is encoded the way the build encodes it, then checked against its box: 
 YES/NO and cursor cells (code highlights them at fixed columns, so they must not move), the controls, and for
 story pages the wrapped line count.
 """
+import re
 import sys
 from pathlib import Path
 
@@ -17,6 +18,7 @@ from extract import read_tsv  # noqa: E402
 
 MENU_END = 22  # message box and popup menus: text up to tile column 21, column 22 is the frame (measured)
 FIELD_END = 16  # name / item field: 16 columns of its own (names have a 1-slot margin, items none)
+JP = re.compile(r"[぀-ヿ一-鿿]")
 FIXED = ("Ｙ", "Ｅ", "Ｓ", "／", "Ｎ", "Ｏ", "▼", "▲", "<▲▼>")
 
 
@@ -73,10 +75,27 @@ def check_block(block, rows):
     return errs
 
 
+def untranslated(block, rows, keep):
+    """Rows (story: pages) with Japanese and no English, unless in script/keep_jp.txt; Japanese inside `en`."""
+    errs = [f"{r[0]}: Japanese in en: {r[3]!r}" for r in rows if JP.search(r[3])]
+    if block in tilemap.STORY:
+        return errs + [f"{p[0][0]}: page not translated" for p, _ in insert.pages(rows) if not p[0][3]]
+    return errs + [f"{id_}: not translated (or list it in script/keep_jp.txt)" for id_, kind, jp, en in rows
+                   if kind != "data" and not en and id_ not in keep
+                   and tilemap.TOKEN.sub("", jp).strip(tilemap.BLANK + "".join(insert.KEEP))]  # YES/NO, cursors
+
+
 def main():
     errs = []
+    keep = {line.split()[0] for line in (ROOT / "script" / "keep_jp.txt").read_text(encoding="utf-8").splitlines()
+            if line.strip() and not line.startswith("#")}
     for block in sorted(tilemap.TABLES):
-        errs += check_block(block, read_tsv(ROOT / "script" / f"{block:02X}.tsv"))
+        rows = read_tsv(ROOT / "script" / f"{block:02X}.tsv")
+        errs += check_block(block, rows) + untranslated(block, rows, keep)
+    try:
+        insert.edits()  # what the build itself rejects (credit rows overlapping, a block too big, ...)
+    except ValueError as e:
+        errs.append(f"build: {e}")
     for e in errs:
         print(e)
     print(f"{len(errs)} errors")

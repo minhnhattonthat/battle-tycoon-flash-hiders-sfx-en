@@ -15,7 +15,8 @@ Columns: `id<TAB>kind<TAB>jp<TAB>en`.
 ## Kinds
 `menu` (prompts, menus; the game picks lines by index, messages are 1-4 consecutive lines), `name`, `item`,
 `story` (typewriter text, 9D-A5: 64 lines per scene at 00 / 40 / 80), `credit`, `data` (not text: filler words
-in 9D lines 14-3F and credits leftovers; never translate).
+in 9D lines 14-3F and credits leftovers; never translate). The credits leftovers `AF-w` are half-cell pieces
+of the Japanese brackets: an English credits build drops them (they overwrote English letters).
 
 ## Text notation (`tools/tilemap.py`, tables `tbl/*.tbl`)
 - `　` = blank slot (leading blanks are layout: menu text starts at slot 1, YES/NO sits at slot 5).
@@ -34,3 +35,7 @@ in 9D lines 14-3F and credits leftovers; never translate).
 - Story rows (9D-A5): English is per page (rows up to a `{wait}`/`{end}`/`{end2}`). Write the page's whole text in
   its first row (later rows of the page may be empty or hold more of it); no margin, no control: the tool wraps it
   at 30 letters, 5 lines per page, adds the margin and the page's control. `\n` forces a line break.
+  The wrap is balanced (no one-word last line; the lint fails a wrapped last line under 6 letters).
+- Lint (`tools/lint.py`) fails any row (story: page) with text and no `en`, unless its id is in `keep_jp.txt` with
+  a reason (credit rows already in English stay in the original large letters). `91-06` is blank in the Japanese
+  but shown under 91-05 (`tilemap.EXTRA`).

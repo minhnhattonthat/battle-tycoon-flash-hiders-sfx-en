@@ -26,6 +26,11 @@ Rows with a code-drawn part (keep the column, check in phase 8):
 - `A8-10` `　　　　　　　　　を` + `A8-11` `手に入れた！`: item name drawn over slots 1-8; the English can drop を
   (`en` = `　`, a blank slot) and say "obtained!" in A8-11 (guess: item-get screen not warpable yet).
 - `A8-15` `すか？　ＹＥＳ／ＮＯ`: text before YES/NO has cols 2-9 (8 letters).
+- `91-06` (blank in the Japanese): the arena welcome box shows lines 05-06 together; `tilemap.EXTRA` makes 06 a
+  script row so "Welcome to the / Underground Arena!" fits (verified: arena warp, experiment build, phase 7).
+
+Story wrap is balanced (phase 7): the narrowest width that keeps the greedy line count, so no page ends on one
+orphan word; the lint fails a wrapped last line under 6 letters (`insert.STUB`).
 
 Story layout (`tools/insert.py`): a page = the rows up to a control. Its `en` cells are joined, wrapped at 30
 letters (`\n` forces a break), the margin and the page's control are added, and pages are laid out from the scene's

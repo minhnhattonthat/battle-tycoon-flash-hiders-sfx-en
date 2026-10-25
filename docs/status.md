@@ -2,9 +2,21 @@
 
 Updated at the end of every session. Keep it to what the next session needs; history is in git.
 
-- **Phase:** 6 (translate) done; next is phase 7 (insert, fit, check). `build/bt_en.sfc` = full English build
-  (every text block 47 90 91 92 9D-A5 A8 AF B0), smoke ok, 57/57 warp scenes (`regen.py --rom build/bt_en.sfc
-  --tag en`, shots `work/qa/warp-en/`); `build/bt_marker.sfc` = marker build.
+- **Phase:** 7 (insert, fit, check) done; next is phase 8 (QA in the emulator: tours of changed scenes, visual-QA
+  verdicts via `qa_gate.py`, graphics text). `build/bt_en.sfc` = full English build (every text block 47 90 91 92
+  9D-A5 A8 AF B0), smoke ok, 57/57 warp scenes (`regen.py --rom build/bt_en.sfc --tag en --sheet`, shots
+  `work/qa/warp-en/`, states `work/states/en/`); `build/bt_marker.sfc` = marker build.
+- **Phase 7 (2026-10-26):** `build.py` verifies every build: write log (old bytes from the clean original) inside
+  `tools/ranges.txt` + `romdiff.check` (no stray byte), header checksum written (3 MB mirrored rule, reproduces
+  0x350E). `tests/test_build.py::test_english_build` builds the real script: romdiff-clean, checksum, every resource
+  pointer decodes to what insert made, every English block + its font rebuilt. Lint (`tools/lint.py`) now also
+  fails untranslated rows/pages and Japanese in `en` (keep-list `script/keep_jp.txt`: credit lines already in
+  English, D11) and any error `insert` raises. Story wrap balanced (D12; fixed 22 one-word last lines), orphan
+  last lines (<6 letters) fail the lint. 91-06 is a new script row (`tilemap.EXTRA`, verified in game: shown
+  under 91-05) -> "Welcome to the / Underground Arena!". Credits bugs found by the full-roll eye check and fixed:
+  the blanked `.1` rows carried a centring space glyph that ate 2 letters of each `.0` name (39 rows;
+  `batches.center("")` fixed, `encode_cells` now rejects overlapping cells); the AF-w raw bracket words
+  overwrote English letters ("Fujiko", "(CUE)") and are dropped from an English credits block.
 - **Phase 6 (2026-10-26):** `tools/batches.py` (split -> `work/tl/b001..b011`, check, merge, pairs, credits).
   b001 menus, b002 names + items (one name per item, merged into 92/A8/B0), b003-b011 story per fighter; credits
   AF by hand (`batches.py credits`, centred, full name on the `.0` row). 3 translator + 4 reviewer agents: all
@@ -12,9 +24,6 @@ Updated at the end of every session. Keep it to what the next session needs; his
   `docs/reviews/phase6-minors.md` (polish pass). Briefs `docs/translator-brief.md`, `reviewer-brief.md`;
   `docs/synopsis.md`, `docs/style-reference.md`; glossary filled (enforced by the check); D9 (story `Name: text`),
   D10 (File Center). `insert.wrap_page` now counts ♥/<sweat>/<anger> as a whole slot.
-- **Phase 7 to-do:** `romdiff.py` with the build's write log (allowed ranges); 91-05 drops "Welcome" (one 20-letter
-  line: check whether code shows 91-05/06 as a two-line box so line 06 could carry it - would need a new script
-  row and an extract/rebuild exception); eye-check credits layout over the whole roll and the A0-11/16 dot pages.
 - **Done:**
   - Step 0 repo setup (rom pin, MesenCE in `tools/mesen/`, guard hook, pre-commit -> `tools/check.py`).
   - Phase 1: no prior patch exists. All text is pre-built BG3 tilemaps inside 179 compressed resources
@@ -54,6 +63,9 @@ Updated at the end of every session. Keep it to what the next session needs; his
     torture line + 8-line page in `build/bt_qa.sfc` (story_bang_1). Width gate: `docs/re/windows.md` (message 20,
     popup 18, item 16, name 14, story 30 x 5, credits 32). warp.lua fix: a queued mash press entering the place
     under the cursor before the forced place (Pachet/Harman story warps failed on the marker ROM).
+- **Phase 8 to-do from phase 7:** G5 jagged SFX lettering seen: `バキッ` in story_harman_1 after the dot pages
+  (`work/qa/en_harman1/f003200.png`, state + mash 450). Credits scroll over the CONGRATULATION banner at the
+  roll start (compare with the original before calling it a bug).
 - **Phase 8 to-do from the tour:** tournament win/lose screens and the item-get prompt after a win are not in the
   scene list yet (need a GOD/auto-win cheat on top of `venue_battle`); res AA name/birthday tiles never seen on
   screen (check whether any code draws them). From phase 5 (guesses in `docs/re/windows.md`): 47-0D (name drawn

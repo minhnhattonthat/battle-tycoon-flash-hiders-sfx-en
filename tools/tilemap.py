@@ -178,6 +178,8 @@ def encode_cells(table, text, raw, size, cols=32, font=None):
         for c in range(0, 32, 2):
             if top[c] or bot[c]:
                 i = r * cols + c + par
+                if any(w[j] for j in (i, i + 1, i + cols, i + cols + 1)):  # .0 and .1 rows share tile rows
+                    raise ValueError(f"credits row {r:03X}.{par}: column {c + par} overlaps another row: {s!r}")
                 w[i], w[i + 1], w[i + cols], w[i + cols + 1] = top[c], top[c + 1], bot[c], bot[c + 1]
     for i, x in raw.items():
         w[i] = x
@@ -193,6 +195,9 @@ SPLIT = {0x47: range(0, 5), 0x90: range(0, 5), 0x91: range(0, 5), 0x92: range(0x
          0xA8: range(0x20, 0x40), 0xB0: range(0, 0x40)}
 STORY = range(0x9D, 0xA6)
 CREDITS = 0xAF
+# blank lines the code shows as part of a message (a script row so English may use them): 91-06 is the second line
+# of the 2-line arena welcome box with 91-05 (verified in game, docs/re/windows.md)
+EXTRA = {0x91: (0x06,)}
 
 
 def _kind(block, line, text):
@@ -216,7 +221,9 @@ def entries(block, data, table):
             out.append((f"AF-w{i:04X}", "data", f"{{w:{x:04X}}}"))
         return out
     w = words(data)
-    for L, s in decode_block(table, data).items():
+    lines = decode_block(table, data)
+    lines.update({L: "" for L in EXTRA.get(block, ()) if L not in lines})
+    for L, s in sorted(lines.items()):
         if L in SPLIT.get(block, ()):
             slots = decode_slots(table, w[L * 64:L * 64 + 32], w[L * 64 + 32:L * 64 + 64])
             for half, part in (("a", slots[:8]), ("b", slots[8:])):

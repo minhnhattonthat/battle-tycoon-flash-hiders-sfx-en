@@ -239,8 +239,10 @@ def merge(names):
 
 def center(en, par):
     """Credits line centred in the 32 tile columns (odd-column rows: 30, one column in): blank slots + a space."""
+    if not en:
+        return ""  # no lead either: a padding space is a glyph and would overwrite the .0 row's letters
     width = 30 if par else 32
-    lead = max(width - len(en), 0) // 2
+    lead =max(width - len(en), 0) // 2
     return tilemap.BLANK * (lead // 2) + " " * (lead % 2) + en
 
 

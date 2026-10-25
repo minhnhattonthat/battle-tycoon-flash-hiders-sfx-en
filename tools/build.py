@@ -16,11 +16,12 @@ sys.path.insert(0, str(ROOT / "tools"))
 import btlz  # noqa: E402
 import check_rom  # noqa: E402
 import insert  # noqa: E402
+import romdiff  # noqa: E402
 
 ORIG = ROOT / "rom" / "Battle Tycoon - Flash Hiders SFX (Japan) (Rev 1).sfc"
 NRES = 0xB3
 EXP_START, EXP_END = 0x300000, 0x400000
-
+CHECKSUM = 0xFFDC  # HiROM header: complement, then checksum (little-endian words)
 
 
 def build(orig, changed, recompress_all=False):
@@ -29,7 +30,7 @@ def build(orig, changed, recompress_all=False):
     writes = []
 
     def write(off, new, who):
-        old = bytes(rom[off:off + len(new)]).ljust(len(new), b"\xff")
+        old = bytes(orig[off:off + len(new)]).ljust(len(new), b"\xff")  # the clean original, never the work buffer
         if old != new:
             writes.append(f"{off:06x} {old.hex()} {new.hex()} {who}")
         if off + len(new) > len(rom):
@@ -59,7 +60,37 @@ def build(orig, changed, recompress_all=False):
         pos += len(packed)
     if len(rom) > len(orig):
         rom.extend(b"\xff" * (EXP_END - len(rom)))  # a moved resource makes the file a full 4 MB
+    if writes:
+        write(CHECKSUM, checksum(rom), "checksum")
     return bytes(rom), writes
+
+
+def checksum(rom):
+    """Header complement + checksum bytes. A 3 MB ROM sums as 2 MB + the last 1 MB twice (mirrored to 4 MB;
+    reproduces the original's 0x350E)."""
+    rom = bytearray(rom)
+    rom[CHECKSUM:CHECKSUM + 4] = b"\xff\xff\x00\x00"
+    total = (sum(rom) + (sum(rom[0x200000:]) if len(rom) == 0x300000 else 0)) & 0xFFFF
+    return (total ^ 0xFFFF).to_bytes(2, "little") + total.to_bytes(2, "little")
+
+
+def ranges():
+    """[(lo, hi inclusive)] from tools/ranges.txt."""
+    out = []
+    for line in (ROOT / "tools" / "ranges.txt").read_text(encoding="utf-8").splitlines():
+        if line.split("#")[0].strip():
+            lo, hi = line.split()[0].split("-")
+            out.append((int(lo, 16), int(hi, 16)))
+    return out
+
+
+def verify(orig, rom, writes):
+    """Errors: a write outside tools/ranges.txt, or anything romdiff.check finds with the write log."""
+    rs = ranges()
+    log = [(int(o, 16), bytes.fromhex(a), bytes.fromhex(b), who) for o, a, b, who in (w.split() for w in writes)]
+    errs = [f"{off:06x} {who}: outside tools/ranges.txt" for off, a, _, who in log
+            if not any(lo <= off and off + len(a) - 1 <= hi for lo, hi in rs)]
+    return errs + romdiff.check(orig, rom, set(), log)[0]
 
 
 def main():
@@ -73,6 +104,9 @@ def main():
     orig = ORIG.read_bytes()
     qa = dict(x.split("=", 1) for x in a.qa)
     rom, writes = build(orig, insert.edits(a.marker, qa, orig), a.recompress_all)
+    errs = verify(orig, rom, writes)
+    if errs:
+        sys.exit("\n".join(errs[:20] + [f"{len(errs)} romdiff errors, nothing written"]))
     a.out.parent.mkdir(parents=True, exist_ok=True)
     a.out.write_bytes(rom)
     a.out.with_name(a.out.stem + "_writes.txt").write_text("\n".join(writes) + "\n", encoding="utf-8")
