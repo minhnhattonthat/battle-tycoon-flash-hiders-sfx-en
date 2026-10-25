@@ -14,8 +14,19 @@ Binding for every translator and reviewer. Agents propose additions in reports; 
 - <voice notes per character, or point to docs/style-reference.md>
 
 ## Characters
+Official spellings from the game's own English graphics (res 0x00/0x0A: VS select and battle name tags).
 | JP | EN | max | notes | Avoid |
 |---|---|---|---|---|
+| バング | Bang | | hero; full name バング＝バイポット on the status screen (res 0xAA): surname TBD | Banga, Bung |
+| ティリア | Tiria | | | Tilia, Tiriya |
+| オットー | Ottoh | | official spelling with -h | Otto |
+| ハーマン | Harman | | | Herman |
+| スピノザ | Spenoza | | official spelling | Spinoza |
+| カルナーサ | Calnarsa | | | Karnasa |
+| シーナ | Seena | | | Sheena, Shina |
+| ガストン | Guston | | official spelling | Gaston |
+| パチェット | Pachet | | registration-center receptionist too | Patchet |
+| ジェイルランス | Jail Lance | | tag reads J.LANCE / JAIL LANCE | Jaillance |
 
 ## Places
 | JP | EN | max | notes | Avoid |
