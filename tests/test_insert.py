@@ -45,6 +45,9 @@ def test_wrap_page():
     assert insert.wrap_page("a\\nb", "{end}") == ["　a", "　b{end}"]
     # no room for the control slot after a 29-letter last line: its last word moves down
     assert insert.wrap_page("x" * 20 + " " + "y" * 8, "{wait}") == ["　" + "x" * 20, "　" + "y" * 8 + "{wait}"]
+    # an icon after an odd letter count is padded to the next slot: "a♥" takes 4 columns
+    assert insert.cols("a♥") == 4 and insert.cols("ab<sweat>") == 4
+    assert insert.wrap_page("x" * 25 + " a♥", "{end}") == ["　" + "x" * 25, "　a♥{end}"]
 
 
 def test_story_rows_reflow():

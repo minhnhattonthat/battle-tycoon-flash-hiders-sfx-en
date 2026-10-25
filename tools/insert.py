@@ -8,6 +8,7 @@ may take more or fewer lines than the Japanese (up to PAGE_LINES). A page is Eng
 Marker mode replaces every text row with `[id]` + filler at the row's full width (phase 5 marker build); `qa`
 overrides single rows ({id: text}) for width and glyph tests.
 """
+import re
 import sys
 from pathlib import Path
 
@@ -22,6 +23,7 @@ TORTURE = "".join(chr(c) for c in range(0x21, 0x7F)) + "  a  b"  # every glyph +
 STORY_COLS = 30  # story line: columns 2-31 (measured: marker build, story_bang_1)
 PAGE_LINES = 5  # story lines per page (between {wait}s); Japanese maximum, raise once a longer page is proven
 KEEP = set("ＹＥＳ／ＮＯ▼▲")  # glyphs that stay in English text (YES/NO cells and cursor rails)
+ICON = re.compile(r"♥|<sweat>|<anger>|\{\w+\}")  # cell-sized items allowed in English story text (+ controls)
 
 
 def lead_tokens(s):
@@ -79,26 +81,36 @@ def pages(rows):
     return out
 
 
+def cols(s):
+    """Tile columns of English story text: a letter is 1, an icon (♥ <sweat> <anger>) is a whole even slot."""
+    n, i = 0, 0
+    while i < len(s):
+        m = ICON.match(s, i)
+        n += n % 2 + 2 if m else 1
+        i = m.end() if m else i + 1
+    return n
+
+
 def wrap_page(text, ctrl, width=STORY_COLS):
-    """Page text -> story lines (`　` margin + up to `width` letters), `ctrl` in the last line's last slot.
+    """Page text -> story lines (`　` margin + up to `width` columns), `ctrl` in the last line's last slot.
     A literal `\\n` forces a line break; spaces around breaks are dropped."""
     lines = []
     for para in text.split("\\n"):
         line = ""
         for word in para.split():
-            if len(word) > width:
+            if cols(word) > width:
                 raise ValueError(f"word over {width} letters: {word!r}")
-            if line and len(line) + 1 + len(word) > width:
+            if line and cols(f"{line} {word}") > width:
                 lines.append(line)
                 line = word
             else:
                 line = f"{line} {word}" if line else word
         lines.append(line)
     last = lines[-1]
-    if len(last) + len(last) % 2 + 2 > width and " " in last:  # no room for the control slot: wrap one word
+    if cols(last + ctrl) > width and " " in last:  # no room for the control slot: wrap one word
         head, word = last.rsplit(" ", 1)
         lines[-1:] = [head, word]
-    elif len(last) + len(last) % 2 + 2 > width:
+    elif cols(last + ctrl) > width:
         lines.append("")
     return [tilemap.BLANK + s for s in lines[:-1]] + [tilemap.BLANK + lines[-1] + ctrl]
 
