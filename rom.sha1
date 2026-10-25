@@ -1,2 +1,2 @@
-# SHA-1 of the supported dump, in sha1sum format (`sha1sum -c rom.sha1` works too). One line per file for discs.
-<sha1>  rom/<file>
+# SHA-1 of the supported dump, in sha1sum format (`sha1sum -c rom.sha1` works too). No-Intro: Battle Tycoon - Flash Hiders SFX (Japan) (Rev 1), 3,145,728 bytes, headerless.
+1959552f9f18335d9e1afb2c98763511fffd1be8  rom/Battle Tycoon - Flash Hiders SFX (Japan) (Rev 1).sfc
