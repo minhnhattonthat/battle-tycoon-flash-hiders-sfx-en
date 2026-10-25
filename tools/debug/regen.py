@@ -1,6 +1,6 @@
 """Warp to every scene in tools/debug/scenes.txt from a cold boot: proof shot + savestate per scene.
 
-    python -X utf8 tools/debug/regen.py [NAME..] [--rom build/bt_en.sfc] [--jobs 4] [--sheet]
+    python -X utf8 tools/debug/regen.py [NAME..] [--rom build/bt_en.sfc] [--jobs 4] [--sheet] [--tag T]
 Writes work/qa/warp/<name>/arrived.png and work/states/<name>.mss; exits 1 if any scene did not log WARP OK.
 Run it again after any code, font or graphics change (savestates keep the old VRAM and code).
 """
@@ -26,9 +26,9 @@ def scene_names():
     return names
 
 
-def run(name, rom, sheet):
-    out = ROOT / "work" / "qa" / "warp" / name
-    state = ROOT / "work" / "states" / f"{name}.mss"
+def run(name, rom, sheet, tag=""):
+    out = ROOT / "work" / "qa" / ("warp-" + tag if tag else "warp") / name
+    state = ROOT / "work" / "states" / tag / f"{name}.mss"
     state.parent.mkdir(parents=True, exist_ok=True)
     cmd = [sys.executable, "-X", "utf8", str(Path(SKILL) / "scripts" / "emu.py"), str(rom), "--out", str(out),
            "--script", str(ROOT / "tools" / "debug" / "warp.lua"), "--var", f"SCENE='{name}'",
@@ -48,6 +48,7 @@ def main():
     ap.add_argument("--rom", default=str(ORIG))
     ap.add_argument("--jobs", type=int, default=4)
     ap.add_argument("--sheet", action="store_true")
+    ap.add_argument("--tag", default="", help="write to work/qa/warp-TAG/ and work/states/TAG/ (keeps the originals)")
     args = ap.parse_args()
     all_names = scene_names()
     names = args.names or all_names
@@ -56,7 +57,7 @@ def main():
         sys.exit(f"unknown scene(s): {unknown}")
     bad = []
     with ThreadPoolExecutor(args.jobs) as ex:
-        for name, ok, code, last in ex.map(lambda n: run(n, args.rom, args.sheet), names):
+        for name, ok, code, last in ex.map(lambda n: run(n, args.rom, args.sheet, args.tag), names):
             print(f"{'ok  ' if ok else 'FAIL'} {name:20} exit {code}  {last[0] if last else ''}", flush=True)
             if not ok:
                 bad.append(name)

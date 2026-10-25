@@ -22,6 +22,17 @@ word (ignored), word w (`f0` = low byte, `f1` = high byte), byte `f2`. Then comm
 | `c & 0xC0 == 0xC0`, else | by `c & 0x30`: 00 -> `(c&15)+1`; 10 -> `((c&15)<<8 \| b)+1`; 20 -> big-endian word + 1 | literal bytes copied |
 | otherwise | by `c & 0xC0`: 00 -> `(c&15)+1`; 40 -> `((c&15)<<8 \| b)+1`; 80 -> BE word + 1 | `c&0x30`: 00 byte v read next, 10 `f0`, 20 `f1` (count x v); 30 read word, repeat [lo, hi] for count bytes |
 
+## Encoder and repack - verified
+`btlz.compress` (greedy: byte runs, 2-byte alternating runs, literals; f0/f1/f2 = the three bytes most covered by
+runs) roundtrips all 179 resources (`tests/test_build.py`); total 0x14A0F1 vs the original 0x149D51 (+0.07%), 79
+resources come out a few bytes bigger. The original encoder is not reproduced byte for byte (its f0/f1/f2 don't
+follow byte frequency, e.g. res 0 has f1=0x40, f2=0x02), so `tools/build.py` keeps unchanged resources' original
+bytes: the no-edit build is byte-identical (test). An edited resource goes back into its old slot if it fits, else
+to banks F0-FF with its table entry repointed. Proven in-game: `build.py --recompress-all` (every resource
+recompressed, 79 moved to F0:0000-FA:247D, 4 MB file) boots and reaches all 57 warp scenes
+(`regen.py --rom build/bt_recompress.sfc --tag recompress`). Its shots match the original warp shots in content;
+pixel diffs are animation phase only (arrival frame shifts up to 6 frames because decode time differs).
+
 The output is byte-oriented (the WRAM writer tracks an odd/even phase in `$4E`; 16-bit stores are an
 optimisation only). A recompressor must reproduce this; for the identity build, either an exact re-encoder or
 "unchanged resources keep their original bytes" (resource bytes are copied untouched unless edited).

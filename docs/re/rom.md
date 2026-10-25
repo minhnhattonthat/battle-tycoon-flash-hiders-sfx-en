@@ -16,9 +16,10 @@ Dump: `rom.sha1` (No-Intro Rev 1, 3,145,728 bytes, headerless).
 | 0x1F9D51-0x1FFFFF | unknown (DF tail: 130 zero bytes at the very end) | guess |
 | 0x200000-0x2FFFFF (banks E0-EF) | sound driver (`JSL $E00003` = play sound) + data; E7 ends in 11,466 zero bytes (0x27D336-0x27FFFF) | guess |
 
-## Free space - plan (guess until tested)
-- The header already declares 4 MB. Expanding the file to 4 MB (0xFF fill) gives banks `$F0-$FF` (file
-  0x300000-0x3FFFFF, 1 MB) for relocated resources: the resource table holds offset16 + bank per entry, so a
-  resource moves by rewriting its 4-byte entry. Must be proven in phase 3/5: boot a 4 MB build with one resource
-  moved there, and check the game never reads `$F0-$FF` expecting a 3 MB mirror (trap-fill + tour).
+## Free space
+- **Verified (phase 3):** the header already declares 4 MB. `tools/build.py` expands the file to 4 MB (0xFF fill)
+  when a resource moves, giving banks `$F0-$FF` (file 0x300000-0x3FFFFF, 1 MB); a resource moves by rewriting its
+  4-byte table entry. `build.py --recompress-all` moves 79 resources to F0:0000-FA:247D (file 0x300000-0x3A247D) and reaches all 57 warp
+  scenes; the rest of `$F0-$FF` stays 0xFF and no scene broke, so nothing reads it as a 3 MB mirror on those
+  routes (not a full trap test of every screen).
 - Candidates inside the 3 MB: E7 tail (0x27D336-0x27FFFF), DF tail. Trap-test before use.

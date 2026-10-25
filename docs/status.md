@@ -2,7 +2,7 @@
 
 Updated at the end of every session. Keep it to what the next session needs; history is in git.
 
-- **Phase:** 2 (debug tool) done; next is phase 3 (identity build). No build yet.
+- **Phase:** 3 (identity build) done; next is phase 4 (extract). `build/bt_en.sfc` = original (no edits yet).
 - **Done:**
   - Step 0 repo setup (rom pin, MesenCE in `tools/mesen/`, guard hook, pre-commit -> `tools/check.py`).
   - Phase 1: no prior patch exists. All text is pre-built BG3 tilemaps inside 179 compressed resources
@@ -19,8 +19,16 @@ Updated at the end of every session. Keep it to what the next session needs; his
     ids in `docs/re/debug.md`. Story blocks 9D-A5 are per character (not chapters); "visuals" = story scenes.
     Graphics tour 2 added to `docs/re/graphics.md` (side panel plates, status screen res AA, staff roll).
     Tools: `tools/ramdiff.py`, `tools/xref_long.py`.
-- **Next (phase 3):** identity build: `tools/build.py` unpacks/repacks the resource archive (btlz) with no edits,
-  output byte-identical to the dump, as a test in `tools/check.py`. Then phase 4 extract (tilemap text -> script/).
+  - Phase 3: `btlz.compress` (greedy RLE encoder, roundtrips all 179 resources, +0.07% vs original) and
+    `tools/build.py` (unchanged resources keep original bytes; edited ones go back in place or to banks F0-FF with
+    the table entry repointed; write log `build/bt_en_writes.txt` for `romdiff.py --writes`). Tests
+    `tests/test_build.py`: no-edit build byte-identical, codec roundtrip, recompress-all decodes same, oversize edit
+    relocates. In-game proof: `build.py --recompress-all --out build/bt_recompress.sfc` (79 resources moved to
+    F0-FA, 4 MB) smoke ok + 57/57 warp scenes (`regen.py --rom build/bt_recompress.sfc --tag recompress`).
+    `regen.py --tag T` keeps the original states/shots apart.
+- **Next (phase 4):** extract the tilemap text (blocks 47/90/91/92/A8/B0, story 9D-A5, credits AF; `docs/re/text.md`)
+  into `script/` with a cell table per font (`tbl/`), roundtrip test (re-encode == decoded tilemap words) and
+  coverage test. Hand the insert step's output to `build.edits()` (resource id -> new decompressed bytes).
 - **Phase 8 to-do from the tour:** tournament win/lose screens and the item-get prompt after a win are not in the
   scene list yet (need a GOD/auto-win cheat on top of `venue_battle`); res AA name/birthday tiles never seen on
   screen (check whether any code draws them).

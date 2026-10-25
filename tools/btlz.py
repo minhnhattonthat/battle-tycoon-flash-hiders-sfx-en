@@ -66,6 +66,79 @@ def decompress(rom, off):
     return bytes(out[:size]), p
 
 
+def _count(base, v, n):
+    """Command bytes for a fill (base = 0x00) of n bytes with source v (0x00 byte, 0x10 f0, 0x20 f1, 0x30 word)."""
+    n -= 1
+    if n < 16:
+        return bytes([v | n])
+    if n < 4096:
+        return bytes([0x40 | v | n >> 8, n & 0xFF])
+    return bytes([0x80 | v, n >> 8, n & 0xFF])
+
+
+def _literal(chunk):
+    n = len(chunk) - 1
+    if n < 16:
+        return bytes([0xC0 | n]) + chunk
+    if n < 4096:
+        return bytes([0xD0 | n >> 8, n & 0xFF]) + chunk
+    return bytes([0xE0, n >> 8, n & 0xFF]) + chunk
+
+
+def compress(data):
+    """Greedy encoder for the format above; decompress(compress(d)) == d (not byte-identical to the original's
+    encoder, whose header bytes don't follow byte frequency; unchanged resources keep their original bytes)."""
+    assert 0 < len(data) <= 0xFFFF, len(data)
+    runs = {}
+    i = 0
+    while i < len(data):  # weigh each byte by the bytes it covers in runs of 2+
+        j = i
+        while j < len(data) and data[j] == data[i]:
+            j += 1
+        if j - i >= 2:
+            runs[data[i]] = runs.get(data[i], 0) + j - i
+        i = j
+    top = sorted(runs, key=lambda b: -runs[b]) + [b for b in range(256) if b not in runs]
+    f0, f1, f2 = top[:3]
+    out = bytearray([0x46, len(data) & 0xFF, len(data) >> 8, 0, 0, f0, f1, f2])
+    lit = bytearray()
+
+    def flush():
+        while lit:  # a literal command carries at most 65536 bytes
+            out.extend(_literal(bytes(lit[:0x10000])))
+            del lit[:0x10000]
+
+    i, n = 0, len(data)
+    while i < n:
+        b = data[i]
+        r = 1
+        while i + r < n and data[i + r] == b:
+            r += 1
+        w = 2  # length of the alternating [data[i], data[i+1]] run
+        while i + w < n and data[i + w] == data[i + (w & 1)]:
+            w += 1
+        if i + 1 >= n:
+            w = 1
+        if b in (f0, f1, f2) and r >= 2 or r >= 3 and r >= w:
+            flush()
+            if b == f2 and r <= 16 and b not in (f0, f1):
+                out.append(0xF0 | r - 1)
+            elif b in (f0, f1):
+                out += _count(0, 0x10 if b == f0 else 0x20, r)
+            else:
+                out += _count(0, 0x00, r) + bytes([b])
+            i += r
+        elif w >= 4:
+            flush()
+            out += _count(0, 0x30, w) + data[i:i + 2]
+            i += w
+        else:
+            lit.append(b)
+            i += 1
+    flush()
+    return bytes(out)
+
+
 if __name__ == "__main__":
     rom = open(sys.argv[1], "rb").read()
     i = int(sys.argv[2], 16)
