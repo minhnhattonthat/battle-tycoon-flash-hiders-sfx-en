@@ -40,7 +40,7 @@ def main():
         if lost:
             sys.exit(f"{path.name}: would drop translated rows {lost[:5]}")
         path.write_text("\n".join([HEADER] + [f"{i}\t{k}\t{jp}\t{old.get(i, '')}" for i, k, jp in rows]) + "\n",
-                        encoding="utf-8")
+                        encoding="utf-8", newline="\n")
         total += len(rows)
         print(f"{path.relative_to(ROOT)}: {len(rows)} rows")
     print(f"{total} rows")
