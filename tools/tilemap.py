@@ -86,42 +86,54 @@ def decode_line(table, top, bot):
     return "".join(decode_slots(table, top, bot)).rstrip(BLANK)
 
 
-def encoder(table):
+def encoder(table, font=None):
+    """Line text -> (top row, bottom row), 32 words each. With `font` (resource id, enfont.BASE), ASCII letters
+    are English 8x16 glyphs, one tile column each; a cell-sized item after an odd number of letters is pushed to
+    the next even column with an English space (never tile 0: the typewriter skips blank-first cells)."""
+    import enfont
     enc = {}
     for n, v in sorted(table.items()):
         enc.setdefault(v, n)
     vals = sorted(enc, key=len, reverse=True)
+    space = enfont.tile_of_char(font, " ") if font else None
 
     def encode_line(text):
-        slots, i = [], 0
+        cols, i = [], 0
+
+        def slot(a, b, c, d):
+            if len(cols) % 2:
+                cols.append((space, space + 16))
+            cols.extend([(a, c), (b, d)])
+
         while i < len(text):
             m = TOKEN.match(text, i)
             if m and m[1]:
-                slots.append(tuple(int(m[k], 16) for k in range(1, 5)))
+                slot(*(int(m[k], 16) for k in range(1, 5)))
             elif m and m[5]:
                 t = tile_of(int(m[5], 16))
-                slots.append((t, t + 1, t + 16, t + 17))
+                slot(t, t + 1, t + 16, t + 17)
             elif m:
                 if m[0] not in CTRL_ENC:
                     raise ValueError(f"unknown control {m[0]} in {text!r}")
-                slots.append((CTRL_ENC[m[0]], 0, 0, 0))
+                slot(CTRL_ENC[m[0]], 0, 0, 0)
             elif text[i] == BLANK:
-                slots.append((0, 0, 0, 0))
+                slot(0, 0, 0, 0)
             else:
                 v = next((v for v in vals if text.startswith(v, i)), None)
-                if v is None:
+                if v is not None:
+                    t = tile_of(enc[v])
+                    slot(t, t + 1, t + 16, t + 17)
+                    i += len(v)
+                    continue
+                if not font or text[i] not in enfont.CHARS:
                     raise ValueError(f"unencodable {text[i]!r} at {i} in {text!r}")
-                t = tile_of(enc[v])
-                slots.append((t, t + 1, t + 16, t + 17))
-                i += len(v)
-                continue
+                t = enfont.tile_of_char(font, text[i])
+                cols.append((t, t + 16))
             i = m.end() if m else i + 1
-        if len(slots) > 16:
-            raise ValueError(f"{len(slots)} slots > 16 in {text!r}")
-        slots += [(0, 0, 0, 0)] * (16 - len(slots))
-        top = [w for s in slots for w in s[:2]]
-        bot = [w for s in slots for w in s[2:]]
-        return top, bot
+        if len(cols) > 32:
+            raise ValueError(f"{len(cols)} columns > 32 in {text!r}")
+        cols += [(0, 0)] * (32 - len(cols))
+        return [c[0] for c in cols], [c[1] for c in cols]
     return encode_line
 
 
@@ -156,11 +168,13 @@ def decode_cells(table, data, cols=32):
     return text, raw
 
 
-def encode_cells(table, text, raw, size, cols=32):
+def encode_cells(table, text, raw, size, cols=32, font=None):
     w = [0] * (size // 2)
-    enc = encoder(table)
+    enc = encoder(table, font)
     for (r, par), s in text.items():
         top, bot = enc(s)
+        if par and (top[30] or bot[30]):
+            raise ValueError(f"credits row {r:03X}.1 runs past column 31: {s!r}")
         for c in range(0, 32, 2):
             if top[c] or bot[c]:
                 i = r * cols + c + par
@@ -214,8 +228,9 @@ def entries(block, data, table):
     return out
 
 
-def rebuild(block, rows, table, size):
-    """Block bytes from [(id, kind, jp)] (the inverse of entries(), up to aliases)."""
+def rebuild(block, rows, table, size, font=None):
+    """Block bytes from [(id, kind, text)] (the inverse of entries(), up to aliases). `font`: English glyphs
+    (see encoder) for rows whose text is English."""
     if block == CREDITS:
         text, raw = {}, {}
         for id_, _, s in rows:
@@ -224,8 +239,8 @@ def rebuild(block, rows, table, size):
             else:
                 r, par = id_[3:].split(".")
                 text[(int(r, 16), int(par))] = s
-        return encode_cells(table, text, raw, size)
-    enc = encoder(table)
+        return encode_cells(table, text, raw, size, font=font)
+    enc = encoder(table, font)
     w = [0] * (size // 2)
     for id_, _, s in rows:
         L, field = int(id_[3:5], 16), id_[5:]

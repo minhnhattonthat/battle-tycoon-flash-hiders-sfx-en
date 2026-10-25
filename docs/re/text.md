@@ -27,10 +27,18 @@ the BG3 map. So relative search and Shift-JIS scans find nothing (tried: 0 hits)
   - `0x2010` -> end of this text (C1:CB26, advances the scene script `$0447`);
   - `0x2011` -> C1:CB16/CB41 (also ends a run; exact meaning still a guess);
   - else -> DMA 2 words of the top row and 2 of the bottom row (one character), every 5 frames.
-- After index 15 it moves to the next line. Box = BG3 rows 2-9 (4 lines of 16 cells, cols 2-31 usable).
-- English impact: with an 8x16 font (1 tile per letter) one step shows 2 letters; the space glyph must not be
-  tile 0, or `" x"` pairs are skipped without drawing `x`. Control cells (2001/2010/2011) must stay in a
-  character slot.
+- After index 15 it moves to the next line. Pages run from BG3 row 2 down; the wait cursor is at row 12 col 15,
+  so 5 lines per page (verified: marker/QA builds, `docs/re/windows.md`).
+- English (phase 5, verified in-game): 8x16 font, 1 tile per letter, one step shows 2 letters; the English space is
+  a glyph tile, never tile 0 (else `" x"` pairs are skipped). Control cells (2001/2010/2011) stay in a whole slot.
+
+## English glyph cells (phase 5) - verified (marker build tour, 57/57 scenes)
+`tools/enfont.py` writes ASCII 0x20-0x7E (Spleen 8x16) into cells the English script no longer needs: font 46 cells
+B6-E5 (kanji; B0-B5 YES/NO and the 01-0B symbols stay), story fonts 94-9C cells 80-AF (each character's kanji sheet;
+font 93 kana/symbols stay), credits font AE cells CB-FA (blank and unused). Glyph i -> cell `base + i//2`, left
+column if i is even; tiles `t` (top) / `t+16` (bottom). Font 46 is loaded whole (1024 tiles) on every menu screen,
+including the status screen at VRAM word 5000 (VRAM dump, inn_status). A block with any English row is rebuilt
+and its font gets the glyphs (`tools/insert.py`), so leftover Japanese kanji in that block would show as letters.
 
 ## Text blocks (id = resource) - verified by rendering (`tools/render_msgs.py FONT TEXT OUT.png --rows 2`)
 | Text | Font (VRAM) | Content | Line slots | ~JP chars |

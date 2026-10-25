@@ -15,6 +15,7 @@ Addresses are for the dump in `rom.sha1` unless a note says otherwise.
 | [rom.md](rom.md) | header, HiROM map, free-space plan (4 MB expansion) | header verified; F0-FF expansion verified (phase 3) |
 | [compression.md](compression.md) | resource table C1:0082, RLE codec + encoder, loaders, repack | verified (tests/test_btlz.py, test_build.py) |
 | [text.md](text.md) | text = pre-built BG3 tilemaps, 16x16 cells, story typewriter + control cells, text block list | verified (VRAM dump + disassembly); cell tables + extraction verified (tests/test_extract.py) |
+| [windows.md](windows.md) | text boxes: width budgets per row kind, story pages, fixed YES/NO cells, code-drawn rows | verified (marker build); 3 code-drawn rows + name fields guess |
 | [debug.md](debug.md) | game-state RAM (day, time, character, place ids), debug warp | verified (tools/debug/regen.py) |
 | [graphics.md](graphics.md) | graphics-text survey (static sweep + first tour) | partial: tour of later screens in phase 2 |
 

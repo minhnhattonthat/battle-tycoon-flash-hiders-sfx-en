@@ -2,7 +2,8 @@
 
 Updated at the end of every session. Keep it to what the next session needs; history is in git.
 
-- **Phase:** 4 (extract) done; next is phase 5 (engine spike + marker build). `build/bt_en.sfc` = original (no edits yet).
+- **Phase:** 5 (engine spike + marker build) done; next is phase 6 (translate). `build/bt_en.sfc` = original (no
+  `en` yet); `build/bt_marker.sfc` = marker build.
 - **Done:**
   - Step 0 repo setup (rom pin, MesenCE in `tools/mesen/`, guard hook, pre-commit -> `tools/check.py`).
   - Phase 1: no prior patch exists. All text is pre-built BG3 tilemaps inside 179 compressed resources
@@ -32,21 +33,30 @@ Updated at the end of every session. Keep it to what the next session needs; his
     story 652, item 230, credit 123, menu 107, name 27, data 63; format `script/README.md`).
     `tests/test_extract.py`: rebuild == original for all 16 blocks (alias cells canonicalised), no unknown cell,
     script jp == ROM.
-- **Next (phase 5, engine spike + marker build):** English font in the cell sheets (8x16, 2 letters per cell; the
-  space glyph must not be tile 0), an insert step `script -> build.edits()` (resource id -> new decompressed
-  bytes; untranslated rows can reuse `tilemap.rebuild`), marker build `[id]` per row, measure each box's width
-  in-game (menus 15 slots after the margin, name/item fields 8 slots, story 15 slots x 4 lines, credits).
-  Story pages are dynamic (`{wait}` clears the box), so English story text may reflow across the scene's 64
-  lines; menu messages must keep their line slots (code picks lines by index). Find the YES/NO highlight code.
+  - Phase 5: English 8x16 font (Spleen, BSD-2, `fonts/`, D8) injected by `tools/enfont.py` into cells the English
+    no longer needs (`docs/re/text.md` §English glyph cells); `tilemap.encoder(table, font)` mixes ASCII columns with
+    table cells. `tools/insert.py` (script en -> resources; story pages re-wrapped at 30 letters, 5 lines/page,
+    reflowed across the scene's 64 lines) feeds `build.py` (`--marker`, `--qa ID=TEXT`). `tools/lint.py` (budgets,
+    fixed YES/NO/cursor columns, controls) runs in check.py via `tests/test_insert.py`. Marker build
+    (`build.py --marker --out build/bt_marker.sfc`, `[id]` + column ruler): smoke ok, 57/57 warp scenes
+    (`regen.py --rom build/bt_marker.sfc --tag marker`), every box shows its id, YES/NO highlight still works, glyph
+    torture line + 8-line page in `build/bt_qa.sfc` (story_bang_1). Width gate: `docs/re/windows.md` (message 20,
+    popup 18, item 16, name 14, story 30 x 5, credits 32). warp.lua fix: a queued mash press entering the place
+    under the cursor before the forced place (Pachet/Harman story warps failed on the marker ROM).
+- **Next (phase 6, translate):** write `docs/translator-brief.md` + `docs/reviewer-brief.md` from the skill assets
+  (the agent types read them) with this repo's rules: `script/README.md` §English column, budgets in
+  `docs/re/windows.md`, check command `python -X utf8 tools/lint.py`; glossary names first (`glossary.md`).
+  Batches from `script/*.tsv` into `work/tl/`, merge back into the `en` column.
 - **Notes for phase 6:** the batch check must not demand `{raw:...}` tokens in EN (A4-83 has one, a half-shifted
   comma); `data` rows are never translated. Staff names in credits (AF) are kanji only: readings need a source
-  (official credits listing / MobyGames) before romanising, don't guess.
+  (official credits listing / MobyGames) before romanising, don't guess. Item names repeat across 92/A8/B0: one
+  English name per item, <= 16 letters. A block goes fully English at once (its kanji cells hold the English
+  glyphs), so translate every non-data row of a block before building it for play.
 - **Phase 8 to-do from the tour:** tournament win/lose screens and the item-get prompt after a win are not in the
   scene list yet (need a GOD/auto-win cheat on top of `venue_battle`); res AA name/birthday tiles never seen on
-  screen (check whether any code draws them).
-- **Engine notes for phase 5:** English via an 8x16 (or 8x8 x 2 rows) font in the existing cell sheets, 2 letters
-  per JP cell; space glyph must not be tile 0 (typewriter skips blank-first cells); YES/NO highlight + cursors are
-  at fixed columns (find that code); resources that grow move to banks F0-FF after expanding to 4 MB (header
-  already says 4 MB) - prove with a boot test.
+  screen (check whether any code draws them). From phase 5 (guesses in `docs/re/windows.md`): 47-0D (name drawn
+  over slots 0-5, needs a registered file / `--sav`), A8-10/11 item get, story data filler rows overwritten when a
+  scene grows past line 0x14 (9D), password screen (`パスワードを見る`) not seen yet - check it uses no font-46
+  kanji cells (English glyphs live there).
 - **Open bugs:** none.
 - **Waiting on the user:** nothing.

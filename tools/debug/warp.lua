@@ -75,9 +75,15 @@ L.on_exec(0xC1C4A1, 0xC1C4A1, function()
   L.log(string.format("new file: char %d rank %d", rd16(0x7E2134) // 2, rd16(0x7E2136)))
 end)
 L.on_exec(0xC0D68B, 0xC0D68B, function() seen.map = true end)
--- Map A-press dispatch (C0:D6CF LDA $0938 -> handler table C1:BAB4): force the place id once.
+-- Map A-press dispatch (C0:D6CF LDA $0938 -> handler table C1:BAB4): force the place id once. Also in stage
+-- "map": a mash press still queued when the map appears would otherwise enter the place under the cursor.
+local function set_day_time()
+  if sc.day then w16(0x7E2130, sc.day) end
+  if sc.time then w16(0x7E2132, sc.time) end
+end
 L.on_exec(0xC0D6CF, 0xC0D6CF, function()
-  if stage == "enter" and sc.place then
+  if (stage == "enter" or stage == "map") and sc.place then
+    set_day_time()
     w16(0x0938, sc.place)
     stage = "entered"
     L.log(string.format("place %d -> handler C0:%04X", sc.place, rd16(0xC1BAB4 + 2 * sc.place)))
@@ -99,8 +105,7 @@ L.on_frame(function(f)
     end
     if f > 20000 then L.fail("warp: map not reached by frame 20000") end
   elseif stage == "map" and f - t0 >= 60 then
-    if sc.day then w16(0x7E2130, sc.day) end
-    if sc.time then w16(0x7E2132, sc.time) end
+    set_day_time()
     if sc.place then stage = "enter"; press("a", 6); press("-", 30) else stage = "post" end
   elseif stage == "entered" and #q == 0 then
     stage = "post"

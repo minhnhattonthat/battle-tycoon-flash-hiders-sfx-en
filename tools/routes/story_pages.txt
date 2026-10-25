@@ -1,0 +1,26 @@
+# from a story_* warp state: let each page type out, then press A (shot it with --shot-every 30)
+240 -
+6 a
+240 -
+6 a
+240 -
+6 a
+240 -
+6 a
+240 -
+6 a
+240 -
+6 a
+240 -
+6 a
+240 -
+6 a
+240 -
+6 a
+240 -
+6 a
+240 -
+6 a
+240 -
+6 a
+240 -

@@ -15,15 +15,12 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 import btlz  # noqa: E402
 import check_rom  # noqa: E402
+import insert  # noqa: E402
 
 ORIG = ROOT / "rom" / "Battle Tycoon - Flash Hiders SFX (Japan) (Rev 1).sfc"
 NRES = 0xB3
 EXP_START, EXP_END = 0x300000, 0x400000
 
-
-def edits():
-    """Resource id -> new decompressed bytes. Empty until the insert step (phase 5+) fills it."""
-    return {}
 
 
 def build(orig, changed, recompress_all=False):
@@ -69,10 +66,13 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--recompress-all", action="store_true")
     ap.add_argument("--out", type=Path, default=ROOT / "build" / "bt_en.sfc")
+    ap.add_argument("--marker", action="store_true", help="every text row -> [id] + filler (marker build)")
+    ap.add_argument("--qa", action="append", default=[], metavar="ID=TEXT", help="override one row's text")
     a = ap.parse_args()
     check_rom.check()
     orig = ORIG.read_bytes()
-    rom, writes = build(orig, edits(), a.recompress_all)
+    qa = dict(x.split("=", 1) for x in a.qa)
+    rom, writes = build(orig, insert.edits(a.marker, qa, orig), a.recompress_all)
     a.out.parent.mkdir(parents=True, exist_ok=True)
     a.out.write_bytes(rom)
     a.out.with_name(a.out.stem + "_writes.txt").write_text("\n".join(writes) + "\n", encoding="utf-8")

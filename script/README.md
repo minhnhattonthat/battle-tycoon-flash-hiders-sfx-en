@@ -24,3 +24,13 @@ in 9D lines 14-3F and credits leftovers; never translate).
 - `<▲▼>`, `▼`, `▲`: menu cursor rail glyphs. `<sweat>` / `<anger>`: sweat drop and anger mark icons.
 - `{raw:AAAA.BBBB.CCCC.DDDD}`: a slot that is not one whole cell (A4-83: a comma shifted half a cell).
 - Same glyph twice in a font (e.g. 出 at 46:BC and 46:D5): one value; re-encoding uses the first cell.
+
+## English column (`en`; build: `tools/insert.py`, budgets and lint: `docs/re/windows.md`, `tools/lint.py`)
+- ASCII letters are 8x16 glyphs, one tile column each (2 per Japanese slot). `　` (fullwidth blank) is still one
+  2-column slot, so keep the Japanese leading `　` margin and layout. The other table values (`ＹＥＳ／ＮＯ`,
+  `▼`, `<▲▼>`, `<sweat>`, controls) take a whole slot; after an odd letter count they move to the next slot.
+- Menu rows: one row = one line, same line as the Japanese (code picks lines by index). Keep the controls, the
+  YES/NO and cursor cells where they are. An empty `en` = not translated; `　` alone = an intentionally blank line.
+- Story rows (9D-A5): English is per page (rows up to a `{wait}`/`{end}`/`{end2}`). Write the page's whole text in
+  its first row (later rows of the page may be empty or hold more of it); no margin, no control: the tool wraps it
+  at 30 letters, 5 lines per page, adds the margin and the page's control. `\n` forces a line break.
