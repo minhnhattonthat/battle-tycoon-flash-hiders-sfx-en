@@ -52,6 +52,20 @@ Total ~10,400 JP characters (item names repeat across 92/A8/B0).
   moving YES/NO in the English line can break the highlight. Find the highlight routine before the marker build.
 - Everything already English (mode select, FILE-01:EMPTY, LEVEL, CHR SELECT, rank names) stays.
 
+## Cell tables and extraction - verified (phase 4)
+- Tables `tbl/f46.tbl` (menus), `f93` (story cells 00-7F) + `f94..f9c` (story cells 80-FF, one per character),
+  `fae` (credits). Fonts 46/93/94-9C share one layout for cells 00-AF: 01-0B symbols (▼「」！（）？, 08 ▲ in 46 /
+  。 in 93, 09 ▲▼ / ♥, 0A sweat drop, 0B anger mark), 0C-14 small katakana, 15-42 katakana gojuon, 43 ー,
+  44-5C katakana voiced, 5D-65 small hiragana, 66-93 hiragana, 94-AC voiced, AD 、 AE … AF 〜; kanji from B0
+  (46: B0-B5 = ＹＥＳ／ＮＯ). Credits font AE is its own bold layout (staff names).
+- Kanji were guessed by `tools/glyphmatch.py` (template match against MS Gothic, `--sheet` for the side-by-side)
+  and then checked by eye and by reading every decoded kanji line. Matcher blind spots fixed by hand: 人/入,
+  様 (matcher says 橿), 他/地, 間, 腹, 形, 路; katakana/hiragana へ and ロ/口-type look-alikes come from the layout.
+- `tools/tilemap.py` decodes a block to lines (credits: cells grouped by start row, any column);
+  `tools/extract.py` writes `script/<BB>.tsv` (`script/README.md`). `tests/test_extract.py`: rebuild from the
+  script == original block for all 16 blocks (alias cells canonicalised), no unknown cells, script == ROM.
+- 1202 rows: story 652, item 230, credit 123, menu 107, name 27, data 63 (not text).
+
 ## Probes and tools
 - `tools/lua/cpuwatch.lua` (CPU-address watch; the skill's watch.lua remaps $7F and logs one line per PC),
   `tools/lua/hirom_reads.lua` (HiROM ROM-read walk), `tools/lua/reslog.lua` (resource loads).
