@@ -180,6 +180,44 @@ def status_logo(rom):
     return {0xAA: bytes(t), 0xAB: bytes(b0 + m[0x800:])}, img
 
 
+SFX_LINES = [("WHAM!", 76, 148, 96, 36)]  # バキッ; bigger needs more than the burst's 160 tiles
+
+
+def sfx(rom):
+    """Story scenes' バキッ burst (G5): tiles 0x122-0x1C1 of res 62 (= res 6A) under maps 7C#4 and 7D#1, the same
+    tiles at +0x31 in res 69 under map 7B#4. Burst fill 6, letters fill 8, outline 1, shadow 2 (palette 1)."""
+    t, m7c = res(rom, 0x62), res(rom, 0x7C)
+    mp = m7c[0x2000:0x2800]
+    img = compose(t, mp)
+    cells = [(i % 32, i // 32) for i in range(1024) if 0x122 <= words(mp, 2 * i, 1)[0] & 0x3FF < 0x1C2]
+    pool = sorted({words(mp, 2 * (ty * 32 + tx), 1)[0] & 0x3FF for tx, ty in cells})
+    burst = {(x, y) for tx, ty in cells for y in range(8 * ty, 8 * ty + 8) for x in range(8 * tx, 8 * tx + 8)
+             if img[y][x] & 15}
+    for x, y in burst:
+        img[y][x] = 0x16
+    fill, r1, _ = logo(SFX_LINES, shear=0.25)
+    shadow = {(x + 2, y + 2) for x, y in fill | r1} - fill - r1
+    assert fill | r1 | shadow <= burst, "SFX lettering leaves the burst"
+    for pts, v in ((shadow, 0x12), (r1, 0x11), (fill, 0x18)):
+        for x, y in pts:
+            img[y][x] = v
+    retile(t, mp, cells, img, pool, {})
+    out = {0x62: bytes(t), 0x6A: bytes(t)}
+    m7c[0x2000:0x2800] = mp
+    m7d = res(rom, 0x7D)
+    m7b = res(rom, 0x7B)
+    t69 = res(rom, 0x69)
+    for tx, ty in cells:
+        i = 2 * (ty * 32 + tx)
+        e = words(mp, i, 1)[0]
+        m7d[0x800 + i:0x802 + i] = mp[i:i + 2]
+        struct.pack_into("<H", m7b, 0x2000 + i, e + 0x31 if e & 0x3FF else e)
+    for n in pool:
+        t69[32 * (n + 0x31):32 * (n + 0x32)] = t[32 * n:32 * n + 32]
+    out.update({0x7C: bytes(m7c), 0x7D: bytes(m7d), 0x7B: bytes(m7b), 0x69: bytes(t69)})
+    return out, img
+
+
 def tile2(data, n):
     b = data[16 * n:16 * n + 16]
     return [((b[2 * y] >> (7 - x)) & 1) | ((b[2 * y + 1] >> (7 - x)) & 1) << 1 for y in range(8) for x in range(8)]
@@ -346,7 +384,7 @@ def panel(rom):
 
 def edits(rom):
     out = {}
-    for f in (title, watermark, panel, status_logo):
+    for f in (title, watermark, panel, status_logo, sfx):
         out.update(f(rom)[0])
     return out
 
