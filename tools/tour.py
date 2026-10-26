@@ -19,8 +19,9 @@ ORIG = ROOT / "rom" / "Battle Tycoon - Flash Hiders SFX (Japan) (Rev 1).sfc"
 EN = ROOT / "build" / "bt_en.sfc"
 
 CURSOR = "8:a,120:-," + ",".join(["8:down,90:-"] * 7)  # open the place menu, walk the cursor (descriptions)
+WIN = ["--script", str(ROOT / "tools" / "lua" / "cheat.lua"), "--var", "GOD=1", "--var", "WIN=1"]
 STORY = dict(frames=9000, shot=120, mash=240)  # 2 shots per page: one with the page fully typed
-# name: (warp state, frames, shot every, mash every (0 = none), route)
+# name: (warp state, frames, shot every, mash every (0 = none), route[, extra emu.py args])
 STOPS = {
     "intro": ("intro", 1500, 60, 0, "1500:-"),
     "title": ("title", 600, 60, 0, "600:-"),
@@ -40,6 +41,8 @@ STOPS = {
     "inn_option": ("inn_option", 900, 60, 0, "60:-," + ",".join(["8:down,90:-"] * 6)),
     "street_battle": ("street_battle", 2400, 60, 90, "30:-"),
     "venue": ("venue", 2400, 60, 90, "30:-"),
+    "venue_win": ("venue_battle", 3600, 60, 20, "10:-", WIN),  # 2 rounds won -> results -> File Center
+    "street_win": ("street_battle", 3600, 60, 20, "10:-", WIN),
     "game_over": ("game_over", 1200, 60, 0, "1200:-"),
     "ending": ("ending", 6000, 120, 240, "30:-"),
     "credits": ("credits", 12000, 120, 0, "12000:-"),
@@ -50,7 +53,7 @@ STOPS = {
 
 
 def run(name, jp):
-    state_scene, frames, shot, mash, route = STOPS[name]
+    state_scene, frames, shot, mash, route, *extra = STOPS[name]
     rom, states, out = (ORIG, "states", "tour_jp") if jp else (EN, "states/en", "tour")
     state = ROOT / "work" / states / f"{state_scene}.mss"
     out = ROOT / "work" / "qa" / out / name
@@ -61,6 +64,7 @@ def run(name, jp):
            "--frames", str(frames), "--shot-every", str(shot), "--timeout", "900"]
     if mash:
         cmd += ["--mash", str(mash)]
+    cmd += extra[0] if extra else []
     p = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
     if p.returncode:
         return name, False, (p.stdout.strip().splitlines() or [""])[-1]
