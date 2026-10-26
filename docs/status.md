@@ -2,10 +2,21 @@
 
 Updated at the end of every session. Keep it to what the next session needs; history is in git.
 
-- **Phase:** 7 (insert, fit, check) done; next is phase 8 (QA in the emulator: tours of changed scenes, visual-QA
-  verdicts via `qa_gate.py`, graphics text). `build/bt_en.sfc` = full English build (every text block 47 90 91 92
-  9D-A5 A8 AF B0), smoke ok, 57/57 warp scenes (`regen.py --rom build/bt_en.sfc --tag en --sheet`, shots
-  `work/qa/warp-en/`, states `work/states/en/`); `build/bt_marker.sfc` = marker build.
+- **Phase:** 8 (QA in the emulator) done; next is phase 9 (release: `tools/release.py` must run `qa_gate.py check`,
+  `jp_left.py` on the build, debug tool off, patch + re-apply + verify, README with base ROM hashes, zip = patch +
+  README; never `gh release create`). `build/bt_en.sfc` = full English build incl. graphics, smoke ok, 59/59 warp
+  scenes (`regen.py --rom build/bt_en.sfc --tag en`, states `work/states/en/`).
+- **Phase 8 (2026-10-26):** graphics text all English (`tools/gfx.py`, D13-D15; `docs/re/graphics.md`): title logo,
+  watermark, status logo, side panel (name plates, Day/time/stage; panel code patched, time-word hook at FF:FF00,
+  code/table writes through `gfx.patches` -> `build.build(patches=)`, ranges in `tools/ranges.txt`), story SFX
+  バキッ -> WHAM! (both tile sets). QA tour `tools/tour.py` (56 stops: menus, cursor walks, A-mash, password screen,
+  every story scene, ending, credits, venue/street wins via `tools/lua/cheat.lua` GOD/WIN) -> `work/qa/tour/`,
+  original in `work/qa/tour_jp/`; full-size sheets of changed frames. Visual QA: 11 + 8 `visual-qa` chunks over
+  195 sheets, `qa_gate.py check work/qa/manifest.tsv work/qa/verdicts` = 0. Fixed from QA: WHAM! scrambled in
+  res 69 scenes (retile consumed its pool), page-end control slot pushing the last word to its own line
+  (`insert.greedy_page`), A0-47 rephrased. Non-bugs recorded in `docs/visual-qa-brief.md` (Spleen F, hat emblem,
+  credits over CONGRATULATION = original). Re-run after any rebuild: build, `regen.py --tag en`, `tour.py`,
+  `qa_gate.py init` + `todo` + reviewers (non-deterministic fights/mash change sheet hashes).
 - **Phase 7 (2026-10-26):** `build.py` verifies every build: write log (old bytes from the clean original) inside
   `tools/ranges.txt` + `romdiff.check` (no stray byte), header checksum written (3 MB mirrored rule, reproduces
   0x350E). `tests/test_build.py::test_english_build` builds the real script: romdiff-clean, checksum, every resource
@@ -63,14 +74,9 @@ Updated at the end of every session. Keep it to what the next session needs; his
     torture line + 8-line page in `build/bt_qa.sfc` (story_bang_1). Width gate: `docs/re/windows.md` (message 20,
     popup 18, item 16, name 14, story 30 x 5, credits 32). warp.lua fix: a queued mash press entering the place
     under the cursor before the forced place (Pachet/Harman story warps failed on the marker ROM).
-- **Phase 8 to-do from phase 7:** G5 jagged SFX lettering seen: `バキッ` in story_harman_1 after the dot pages
-  (`work/qa/en_harman1/f003200.png`, state + mash 450). Credits scroll over the CONGRATULATION banner at the
-  roll start (compare with the original before calling it a bug).
-- **Phase 8 to-do from the tour:** tournament win/lose screens and the item-get prompt after a win are not in the
-  scene list yet (need a GOD/auto-win cheat on top of `venue_battle`); res AA name/birthday tiles never seen on
-  screen (check whether any code draws them). From phase 5 (guesses in `docs/re/windows.md`): 47-0D (name drawn
-  over slots 0-5, needs a registered file / `--sav`), A8-10/11 item get, story data filler rows overwritten when a
-  scene grows past line 0x14 (9D), password screen (`パスワードを見る`) not seen yet - check it uses no font-46
-  kanji cells (English glyphs live there).
+- **Not seen in game (low risk, note for a playtester):** A8-10/11 item-get prompt (a day-1 venue win gives skill,
+  gold and level only; items come later in the tournament), 47-0D (fighter name over slots 0-5 at registration),
+  res AA name/birthday tiles (no screen found that draws them). Tour stop `street_win` never leaves the STREET
+  BATTLE select screen (route needs an opponent pick); venue_win covers the fight/results screens.
 - **Open bugs:** none.
 - **Waiting on the user:** nothing.
