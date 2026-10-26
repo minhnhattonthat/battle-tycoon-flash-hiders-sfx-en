@@ -201,7 +201,7 @@ def sfx(rom):
     for pts, v in ((shadow, 0x12), (r1, 0x11), (fill, 0x18)):
         for x, y in pts:
             img[y][x] = v
-    retile(t, mp, cells, img, pool, {})
+    retile(t, mp, cells, img, list(pool), {})  # retile pops its pool; the full list is copied to res 69 below
     out = {0x62: bytes(t), 0x6A: bytes(t)}
     m7c[0x2000:0x2800] = mp
     m7d = res(rom, 0x7D)

@@ -34,6 +34,8 @@ STOPS = {
     "plate_harman": ("plate_harman", 300, 100, 0, "300:-"),
     **{f"{p}_cursor": (p, 1200, 45, 0, CURSOR) for p in ("file_center", "item_shop", "arena", "inn")},
     **{f"{p}_mash": (p, 2400, 60, 90, "30:-") for p in ("file_center", "item_shop", "arena", "inn", "map_menu")},
+    "file_center_password": ("file_center", 1500, 30, 0,
+                             "8:a,600:-,8:a,200:-,8:down,60:-,8:a,300:-,8:a,200:-"),  # 2nd A opens the menu
     "inn_status": ("inn_status", 300, 100, 0, "300:-"),
     "inn_option": ("inn_option", 900, 60, 0, "60:-," + ",".join(["8:down,90:-"] * 6)),
     "street_battle": ("street_battle", 2400, 60, 90, "30:-"),

@@ -119,9 +119,13 @@ def stub(text, ctrl):
 
 def greedy_page(text, ctrl, width):
     lines = []
-    for para in text.split("\\n"):
+    paras = text.split("\\n")
+    for k, para in enumerate(paras):
+        words = para.split()
+        if k == len(paras) - 1:  # the control rides on the last word, so only that word wraps for it
+            words = words[:-1] + [(words[-1] if words else "") + ctrl]
         line = ""
-        for word in para.split():
+        for word in words:
             if cols(word) > width:
                 raise ValueError(f"word over {width} letters: {word!r}")
             if line and cols(f"{line} {word}") > width:
@@ -130,13 +134,7 @@ def greedy_page(text, ctrl, width):
             else:
                 line = f"{line} {word}" if line else word
         lines.append(line)
-    last = lines[-1]
-    if cols(last + ctrl) > width and " " in last:  # no room for the control slot: wrap one word
-        head, word = last.rsplit(" ", 1)
-        lines[-1:] = [head, word]
-    elif cols(last + ctrl) > width:
-        lines.append("")
-    return [tilemap.BLANK + s for s in lines[:-1]] + [tilemap.BLANK + lines[-1] + ctrl]
+    return [tilemap.BLANK + s for s in lines]
 
 
 def story_rows(block, rows, no_limit=()):

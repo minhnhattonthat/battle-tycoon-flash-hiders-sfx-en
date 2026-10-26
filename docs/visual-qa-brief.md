@@ -38,6 +38,9 @@ Standing non-bugs, `ok` (the controller adds the game's own below):
 - the credits' large fullwidth `©1995 RIGHT STUFF` and `SEE YOU AGAIN NEXT BATTLE・TYCOON` are original (D11);
 - the large English titles (ADVANCE, VERSUS, OPTION, STREET BATTLE, CONTINUE nn, CONGRATULATION, fighter tags) are
   the original's own;
+- the English font (Spleen 8x16) draws `F` and `E` with a rounded top-left corner, so `F` can look like `f`;
+- the File Center receptionist's hat emblem is artwork, unchanged from the original;
+- story lines may run to x=254 of 256 (30 columns from column 2): fine unless a letter is cut;
 - the stops end where their frame budget ends: a story stop may stop mid-scene, a menu stop may wander into a
   sub-screen the A mash opened.
 
