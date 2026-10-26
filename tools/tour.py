@@ -6,6 +6,7 @@ English: build/bt_en.sfc from work/states/en/ (regen.py --rom build/bt_en.sfc --
 Then: qa_gate.py init work/qa/manifest.tsv work/qa/tour (references/emulator-qa.md §Visual QA).
 """
 import argparse
+import hashlib
 import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor
@@ -101,6 +102,8 @@ def main():
             if not ok:
                 bad.append(name)
     print(f"{len(names) - len(bad)}/{len(names)} stops toured")
+    if not (a.jp or a.names or a.sheets_only or bad):  # release.py refuses a build the full tour didn't shoot
+        (ROOT / "work" / "qa" / "tour" / "rom.sha1").write_text(hashlib.sha1(EN.read_bytes()).hexdigest() + "\n")
     sys.exit(1 if bad else 0)
 
 

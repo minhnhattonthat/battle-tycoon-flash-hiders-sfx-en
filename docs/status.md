@@ -2,10 +2,13 @@
 
 Updated at the end of every session. Keep it to what the next session needs; history is in git.
 
-- **Phase:** 8 (QA in the emulator) done; next is phase 9 (release: `tools/release.py` must run `qa_gate.py check`,
-  `jp_left.py` on the build, debug tool off, patch + re-apply + verify, README with base ROM hashes, zip = patch +
-  README; never `gh release create`). `build/bt_en.sfc` = full English build incl. graphics, smoke ok, 59/59 warp
-  scenes (`regen.py --rom build/bt_en.sfc --tag en`, states `work/states/en/`).
+- **Phase:** 9 (release) done 2026-10-26: `tools/release.py` -> `release/BattleTycoon_EN_v1.0.zip` (bps + README.txt
+  from `docs/README.release.txt`), patch sha1 c64d2236c2906b084fc00a07da79b51b889b26ba, patched CRC32 6C5E7D44
+  (= `build/bt_en_v1.0.sfc`). Gates: build, check, smoke, leftover-Japanese scan (text blocks decoded from the build
+  with the English glyph cells left out of the tables -> `work/release/text.txt`, `jp_left.py --sjis` + a strict
+  regex; 0 rows, the original gives 1110), build sha1 == the full tour's (`tour.py` stamps `work/qa/tour/rom.sha1`),
+  `qa_gate.py check`, bps re-applied == build. Repo README filled. Next: publish (GitHub repo is private; going
+  public + `gh release create v1.0` need the user's go).
 - **Phase 8 (2026-10-26):** graphics text all English (`tools/gfx.py`, D13-D15; `docs/re/graphics.md`): title logo,
   watermark, status logo, side panel (name plates, Day/time/stage; panel code patched, time-word hook at FF:FF00,
   code/table writes through `gfx.patches` -> `build.build(patches=)`, ranges in `tools/ranges.txt`), story SFX
