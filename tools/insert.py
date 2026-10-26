@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 import btlz  # noqa: E402
 import enfont  # noqa: E402
+import gfx  # noqa: E402
 import tilemap  # noqa: E402
 from extract import read_tsv  # noqa: E402
 
@@ -214,7 +215,8 @@ def edits(marker_mode=False, qa=None, rom=None):
         out[block] = tilemap.rebuild(block, text, table, size, font)
         if font not in out:
             out[font] = enfont.inject(font, btlz.decompress(rom, btlz.res_offset(rom, font))[0])
-    unknown = set(qa) - {r[0] for b in tilemap.TABLES for r in read_tsv(ROOT / "script" / f"{b:02X}.tsv")}
+    out.update(gfx.edits(rom))  # graphics text (titles, plates), docs/re/graphics.md
+    unknown = set(qa) -{r[0] for b in tilemap.TABLES for r in read_tsv(ROOT / "script" / f"{b:02X}.tsv")}
     if unknown:
         raise ValueError(f"--qa ids not in the script: {sorted(unknown)}")
     return out
