@@ -15,17 +15,20 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 import btlz  # noqa: E402
 import check_rom  # noqa: E402
+import gfx  # noqa: E402
 import insert  # noqa: E402
 import romdiff  # noqa: E402
 
 ORIG = ROOT / "rom" / "Battle Tycoon - Flash Hiders SFX (Japan) (Rev 1).sfc"
 NRES = 0xB3
 EXP_START, EXP_END = 0x300000, 0x400000
+CODE = 0x3FFF00  # FF:FF00-FFFF: new code + its tables (gfx.patches); moved resources stay below
 CHECKSUM = 0xFFDC  # HiROM header: complement, then checksum (little-endian words)
 
 
-def build(orig, changed, recompress_all=False):
-    """Return (rom bytes, write log lines)."""
+def build(orig, changed, recompress_all=False, patches=()):
+    """Return (rom bytes, write log lines). patches: raw [(file offset, bytes, who)] (code, tables; gfx.patches),
+    the expansion ones above CODE."""
     rom = bytearray(orig)
     writes = []
 
@@ -51,13 +54,15 @@ def build(orig, changed, recompress_all=False):
             continue
         if (pos & 0xFFFF) + len(packed) > 0x10000:
             pos = (pos | 0xFFFF) + 1  # keep a moved resource inside one bank
-        if pos + len(packed) > EXP_END:
+        if pos + len(packed) > CODE:
             sys.exit(f"res {i:#x}: expansion area full")
         write(pos, packed, f"res{i:02x}")
         bank = 0xC0 | pos >> 16
         e = btlz.TABLE + 4 * i
         write(e, bytes([pos & 0xFF, pos >> 8 & 0xFF, bank - 0xCB, 0]), f"res{i:02x}-ptr")
         pos += len(packed)
+    for off, new, who in patches:
+        write(off, new, who)
     if len(rom) > len(orig):
         rom.extend(b"\xff" * (EXP_END - len(rom)))  # a moved resource makes the file a full 4 MB
     if writes:
@@ -103,7 +108,7 @@ def main():
     check_rom.check()
     orig = ORIG.read_bytes()
     qa = dict(x.split("=", 1) for x in a.qa)
-    rom, writes = build(orig, insert.edits(a.marker, qa, orig), a.recompress_all)
+    rom, writes = build(orig, insert.edits(a.marker, qa, orig), a.recompress_all, gfx.patches(orig))
     errs = verify(orig, rom, writes)
     if errs:
         sys.exit("\n".join(errs[:20] + [f"{len(errs)} romdiff errors, nothing written"]))

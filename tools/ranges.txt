@@ -1,6 +1,14 @@
 # Where build.py may write (inclusive hex, then a comment). build.verify() fails on a write outside these and runs
 # romdiff.py with the write log (docs/re/compression.md, docs/re/rom.md).
+CFEB-CFEC      side panel: 日目 map destination (gfx.panel)
+D007-D008      side panel: time word destination
+D00E-D00E      side panel: time word width
+D01B-D024      side panel: time word tile -> JSL FF:FF00 hook
+D03C-D03D      side panel: stage word destination
+D043-D043      side panel: stage word width
+D0C2-D0C3      side panel: day digit destination
 FFDC-FFDF      header checksum complement + checksum
+1BA9C-1BAAD    side panel: stage word table C1:BA9C (9 days)
 10082-1034D    resource table (0xB3 entries x 4 bytes)
 B0000-1F9D4F   compressed resources (an edited one repacked into its own slot)
 300000-3FFFFF  expansion banks F0-FF (moved resources)

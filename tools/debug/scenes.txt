@@ -44,6 +44,8 @@ panel_d5_t3       day=4 time=3 place=2 route=200:-
 panel_d6_t4       day=5 time=4 place=2 route=200:-
 panel_d8_t0       day=7 time=0 place=2 route=200:-
 panel_d9_t2       day=8 time=2 place=2 route=200:-
+plate_calnarsa    char=5 day=6 time=3 place=2 route=200:-
+plate_harman      char=3 day=2 time=1 place=2 route=200:-
 
 # --- story: per character, scene 1 = opening (place 7), 2 = before the finals (place 8), 3 = ending (place 9)
 story_bang_1      char=0 place=7 route=300:-

@@ -195,11 +195,136 @@ def watermark(rom):
     return {0x08: bytes(t)}, img
 
 
+def spleen(text, gap=1, space=3):
+    """text in Spleen 8x16, packed proportionally (each glyph's ink + gap) -> (set of (x, y), width)."""
+    import enfont
+    g, mask, x = enfont.glyphs(), set(), 0
+    for ch in text:
+        cols = [c for c in range(8) if any(r >> (7 - c) & 1 for r in g[ch])]
+        if not cols:
+            x += space
+            continue
+        mask |= {(x + c - cols[0], y) for y, r in enumerate(g[ch]) for c in cols if r >> (7 - c) & 1}
+        x += cols[-1] - cols[0] + 1 + gap
+    return mask, x - gap
+
+
+# Plate letters missing from the game's own yellow font (res 1C), drawn in its style: 7 x 12, 2 px strokes.
+PLATE_EXTRA = {
+    "B": ["######.", "#######", "##...##", "##...##", "##...##", "######.", "######.", "##...##", "##...##",
+          "##...##", "#######", "######."],
+    "H": ["##...##"] * 5 + ["#######"] * 2 + ["##...##"] * 5,
+    "M": ["##...##", "###.###", "#######", "##.#.##", "##.#.##"] + ["##...##"] * 7,
+    "Z": ["#######", "#######", ".....##", "....##.", "....##.", "...##..", "..##...", "..##...", ".##....",
+          "##.....", "#######", "#######"],
+}
+PLATE_FONT = {**{c: 0x2A + i for i, c in enumerate("ADEG")}, **{c: 0xA4 + i for i, c in enumerate("IKLNOPRSTUVC")}}
+PLATE_RAMP = [3, 3, 4, 4, 5, 5, 5, 5, 6, 6, 7, 7]  # fill colour by glyph row (rows 2-13 of the 16)
+# fighters 0-8; plates 9-11 (ウォレス メイジア ボランゾ) are never copied (no fighter 9-11): their tiles hold words
+PLATE_NAMES = ["BANG", "TIRIA", "OTTOH", "HARMAN", "SPENOZA", "CALNARSA", "SEENA", "GUSTON", "PACHET"]
+
+
+def plate_glyph(t, ch):
+    """Fill pixels (x, row 0-11) of a plate letter: from the game font, else PLATE_EXTRA."""
+    if ch in PLATE_EXTRA:
+        return {(x, y) for y, r in enumerate(PLATE_EXTRA[ch]) for x, c in enumerate(r) if c == "#"}
+    top = PLATE_FONT[ch]
+    return {(x, y - 2) for y in range(2, 14) for x in range(8)
+            if tile4(t, top + 16 * (y // 8))[8 * (y % 8) + x] >= 3}
+
+
+def stamp(img, x0, fill, colour):
+    """fill pixels (x, row) at x0, glyph rows 2-13; colour(row) -> index; index 1 shadow right/below."""
+    pts = {(x0 + x, 2 + y) for x, y in fill}
+    for x, y in pts:
+        for dx, dy in ((1, 0), (0, 1), (1, 1)):
+            if (x + dx, y + dy) not in pts and x + dx < len(img[0]):
+                img[y + dy][x + dx] = 1
+    for x, y in pts:
+        img[y][x] = colour(y - 2)
+
+
+def put_rect(t, first, w, img):
+    """img (16 rows x 8w) -> tiles first.. as the panel's rect command reads them: row 0, then row 1."""
+    for r in range(2):
+        for c in range(w):
+            t[32 * (first + r * w + c):32 * (first + r * w + c) + 32] = pack4(
+                [img[8 * r + y][8 * c + x] for y in range(8) for x in range(8)])
+
+
+# Side panel words (C0:CFE5). The rect commands are widened to 8 x 2 tiles at column 23, the plate's span (code
+# patches below); stage words keep their table C1:BA9C, time words get one too (hook at FF:FF00). Tiles: the old
+# words' 0x40-0xA3 and the unused plates 9-11 + digit 0 (0x190-0x1C3), 16 per word.
+WORD_W = 8
+STAGES = ["Prelims", "Finals", "Semifinal", "Final"]  # 予戦 本戦 準決勝 決勝 (glossary: 本戦 finals, 予戦 prelims)
+TIMES = ["Dawn", "Morning", "Noon", "Evening", "Night"]  # 早朝 朝 昼 夕方 夜
+SLOTS = [0x40, 0x50, 0x60, 0x70, 0x80, 0x90, 0x190, 0x1A0, 0x1B0]
+FREE = [*range(0x40, 0xA4), *range(0x190, 0x1C4)]
+DAY_TILES = [0x0E, 0x0F, 0x2E, 0x2F, 0x1E, 0x1F, 0x3E, 0x3F]  # 日目 map at C1:B0E6 (4 x 2), now "Day"
+STAGE_TABLE = 0x1BA9C  # C1:BA9C, map word per day 0-8 (days 0-4 prelims, 5-6 finals, 7 semi, 8 final)
+STAGE_OF_DAY = [0, 0, 0, 0, 0, 1, 1, 2, 3]
+HOOK, HOOK_TABLE = 0x3FFF00, 0x3FFF10  # FF:FF00
+
+
+def word_img(text, w, align=0.5):
+    """text in white (index 15) on w x 2 tiles; align 0 left, 0.5 centre, 1 right."""
+    mask, width = spleen(text)
+    if width > 8 * w:
+        raise ValueError(f"panel word {text!r}: {width} px > {8 * w}")
+    x0 = round((8 * w - width) * align)
+    img = [[0] * (8 * w) for _ in range(16)]
+    for x, y in mask:
+        img[y][x0 + x] = 15
+    return img
+
+
+def panel(rom):
+    """res 1C: name plates (tiles 0x100 + 16n: 8 top tiles then 8 bottom, copied to VRAM 0x100 for the fighter),
+    "Day", stage and time words. Returns ({0x1C: data}, [(file offset, bytes, who)])."""
+    t = res(rom, 0x1C)
+    for n, name in enumerate(PLATE_NAMES):
+        img = [[0] * 64 for _ in range(16)]
+        x0 = 8 if len(name) < 8 else 0  # in line with LEVEL below
+        for i, ch in enumerate(name):
+            stamp(img, x0 + 8 * i, plate_glyph(t, ch), lambda y: PLATE_RAMP[y])
+        for k in range(16):
+            t[32 * (0x100 + 16 * n + k):32 * (0x100 + 16 * n + k) + 32] = pack4(
+                [img[8 * (k // 8) + y][8 * (k % 8) + x] for y in range(8) for x in range(8)])
+    day = word_img("Day", 4, align=1)  # right-aligned against the digit
+    for i, n in enumerate(DAY_TILES):
+        r, c = divmod(i, 4)
+        t[32 * n:32 * n + 32] = pack4([day[8 * r + y][8 * c + x] for y in range(8) for x in range(8)])
+    for n in FREE:
+        t[32 * n:32 * n + 32] = bytes(32)
+    for slot, text in zip(SLOTS, STAGES + TIMES):
+        put_rect(t, slot, WORD_W, word_img(text, WORD_W))
+    entry = [0x1800 | s for s in SLOTS]  # palette 6
+    stage_tbl = b"".join(struct.pack("<H", entry[s]) for s in STAGE_OF_DAY)
+    time_tbl = b"".join(struct.pack("<H", entry[4 + i]) for i in range(5))
+    hook = bytes([0xDA, 0xAF, 0x32, 0x21, 0x7E, 0x0A, 0xAA, 0xBF, HOOK_TABLE & 0xFF, HOOK_TABLE >> 8 & 0xFF, 0xFF,
+                  0xFA, 0x6B])  # PHX; LDA $7E2132; ASL; TAX; LDA table,X; PLX; RTL
+    patches = [
+        (0xCFEB, b"\x78\x76", "panel-day-at-col24"),  # 日目 map (now "Day") at col 24
+        (0xD0C2, b"\x7C\x76", "panel-digit-at-col28"),  # day digit after it
+        (0xD007, b"\xB7\x76", "panel-time-col23"), (0xD00E, bytes([WORD_W]), "panel-time-width"),
+        (0xD01B, b"\x22" + struct.pack("<I", HOOK)[:3] + b"\xEA" * 6, "panel-time-hook"),  # JSL hook; NOP x6
+        (0xD03C, b"\xF7\x76", "panel-stage-col23"), (0xD043, bytes([WORD_W]), "panel-stage-width"),
+        (STAGE_TABLE, stage_tbl, "panel-stage-table"),
+        (HOOK, hook, "panel-time-hook-code"), (HOOK_TABLE, time_tbl, "panel-time-table"),
+    ]
+    return {0x1C: bytes(t)}, patches
+
+
 def edits(rom):
     out = {}
-    for f in (title, watermark):
+    for f in (title, watermark, panel):
         out.update(f(rom)[0])
     return out
+
+
+def patches(rom):
+    """Raw ROM writes (code and tables) that go with edits(): [(file offset, bytes, who)]."""
+    return panel(rom)[1]
 
 
 def cgram(path):

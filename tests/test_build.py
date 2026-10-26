@@ -1,6 +1,7 @@
 import btlz
 import build
 import enfont
+import gfx
 import insert
 import tilemap
 from conftest import ROOT
@@ -41,7 +42,7 @@ def test_english_build(rom):
     checksum right, every resource pointer lands on a resource that decodes to what insert.py made, and every
     block with English is rebuilt."""
     edits = insert.edits(rom=rom)
-    out, writes = build.build(rom, edits)
+    out, writes = build.build(rom, edits, patches=gfx.patches(rom))
     assert build.verify(rom, out, writes) == []
     assert build.checksum(out) == out[build.CHECKSUM:build.CHECKSUM + 4]
     for i in range(build.NRES):
