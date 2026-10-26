@@ -56,11 +56,23 @@ def run(name, jp):
         return name, False, f"no state {state}"
     cmd = [sys.executable, "-X", "utf8", str(Path(SKILL) / "scripts" / "emu.py"), str(rom), "--out", str(out),
            "--state-in", str(state), "--route-str", route.replace(":", " ").replace(",", ";"),
-           "--frames", str(frames), "--shot-every", str(shot), "--sheet", "--timeout", "900"]
+           "--frames", str(frames), "--shot-every", str(shot), "--timeout", "900"]
     if mash:
         cmd += ["--mash", str(mash)]
     p = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
-    return name, p.returncode == 0, (p.stdout.strip().splitlines() or [""])[-1]
+    if p.returncode:
+        return name, False, (p.stdout.strip().splitlines() or [""])[-1]
+    return name, *sheets(out)
+
+
+def sheets(out):
+    """Full-size sheets of the frames that changed (text readable without opening frames): out/sheet*.png."""
+    for old in out.glob("sheet*.png"):
+        old.unlink()
+    p = subprocess.run([sys.executable, "-X", "utf8", str(Path(SKILL) / "scripts" / "sheet.py"), str(out),
+                        "--changed", "0.01", "--div", "1", "--max", "12", "--out", str(out / "sheet.png")],
+                       capture_output=True, text=True, encoding="utf-8", errors="replace")
+    return p.returncode == 0, (p.stdout.strip().splitlines() or [""])[-1][:100]
 
 
 def main():
@@ -68,6 +80,7 @@ def main():
     ap.add_argument("names", nargs="*")
     ap.add_argument("--jp", action="store_true")
     ap.add_argument("--jobs", type=int, default=4)
+    ap.add_argument("--sheets-only", action="store_true", help="remake the sheets from the frames already shot")
     a = ap.parse_args()
     names = a.names or list(STOPS)
     unknown = [n for n in names if n not in STOPS]
@@ -75,7 +88,9 @@ def main():
         sys.exit(f"unknown stop(s): {unknown}")
     bad = []
     with ThreadPoolExecutor(a.jobs) as ex:
-        for name, ok, last in ex.map(lambda n: run(n, a.jp), names):
+        job = (lambda n: (n, *sheets(ROOT / "work" / "qa" / ("tour_jp" if a.jp else "tour") / n))) \
+            if a.sheets_only else (lambda n: run(n, a.jp))
+        for name, ok, last in ex.map(job, names):
             print(f"{'ok  ' if ok else 'FAIL'} {name:22} {last}", flush=True)
             if not ok:
                 bad.append(name)
