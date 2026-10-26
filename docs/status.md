@@ -7,8 +7,9 @@ Updated at the end of every session. Keep it to what the next session needs; his
   (= `build/bt_en_v1.0.sfc`). Gates: build, check, smoke, leftover-Japanese scan (text blocks decoded from the build
   with the English glyph cells left out of the tables -> `work/release/text.txt`, `jp_left.py --sjis` + a strict
   regex; 0 rows, the original gives 1110), build sha1 == the full tour's (`tour.py` stamps `work/qa/tour/rom.sha1`),
-  `qa_gate.py check`, bps re-applied == build. Repo README filled. Next: publish (GitHub repo is private; going
-  public + `gh release create v1.0` need the user's go).
+  `qa_gate.py check`, bps re-applied == build. Repo README filled. Published 2026-10-26 (D16): repo public with topics,
+  https://github.com/minhnhattonthat/battle-tycoon-flash-hiders-sfx-en/releases/tag/v1.0 (asset downloaded back ==
+  local zip). Next: player bug reports (`gh issue list --label bug`), polish pass `docs/reviews/phase6-minors.md`.
 - **Phase 8 (2026-10-26):** graphics text all English (`tools/gfx.py`, D13-D15; `docs/re/graphics.md`): title logo,
   watermark, status logo, side panel (name plates, Day/time/stage; panel code patched, time-word hook at FF:FF00,
   code/table writes through `gfx.patches` -> `build.build(patches=)`, ranges in `tools/ranges.txt`), story SFX
