@@ -151,6 +151,35 @@ def title(rom):
     return {0x32: bytes(t), 0x33: bytes(b1 + b2)}, (img1, img2)
 
 
+STATUS_LINES = [("BATTLE", 18, 154, 78, 23), ("TYCOON", 32, 182, 78, 23)]
+
+
+def status_logo(rom):
+    """Status screen logo (inn -> status): res AA tiles, map res AB first half (BG, palette 5), cells rows 19-26,
+    cols 1-14. Orange plate 0x5D (x 8-119, y 154-201), letters blue ramp 1-10 dark at the bottom, white edge,
+    dark-orange outer edge; FLASH HIDERS SFX (red 0x5B, y 211+) kept. The logo's own tiles are the pool."""
+    t, m = res(rom, 0xAA), res(rom, 0xAB)
+    b0 = m[:0x800]
+    img = compose(t, b0)
+    cells = [(tx, ty) for ty in range(19, 27) for tx in range(1, 15)]
+    pool = sorted({words(b0, 2 * (ty * 32 + tx), 1)[0] & 0x3FF for tx, ty in cells} - {0, 0x1EF, 0x1FF})
+    for y in range(152, 216):
+        for x in range(8, 120):
+            if img[y][x] != 0x5B:
+                img[y][x] = 0x5D if 154 <= y <= 201 else 0
+    fill, r1, r2 = logo(STATUS_LINES, shear=0.28)
+    for x, y in r2:
+        img[y][x] = 0x5C
+    for x, y in r1:
+        img[y][x] = 0x5F
+    top, bot = min(y for _, y in fill), max(y for _, y in fill)
+    for x, y in fill:
+        img[y][x] = 0x50 | (3 + (y - top) * 8 // (bot - top + 1))  # 3 (light) .. 10 (dark)
+    assert max(y for _, y in r2) < 211 and min(y for _, y in r2) >= 152
+    retile(t, b0, cells, img, pool, {})
+    return {0xAA: bytes(t), 0xAB: bytes(b0 + m[0x800:])}, img
+
+
 def tile2(data, n):
     b = data[16 * n:16 * n + 16]
     return [((b[2 * y] >> (7 - x)) & 1) | ((b[2 * y + 1] >> (7 - x)) & 1) << 1 for y in range(8) for x in range(8)]
@@ -317,7 +346,7 @@ def panel(rom):
 
 def edits(rom):
     out = {}
-    for f in (title, watermark, panel):
+    for f in (title, watermark, panel, status_logo):
         out.update(f(rom)[0])
     return out
 
