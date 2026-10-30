@@ -9,6 +9,19 @@ no game data you can play; you need your own dump of the Japanese game.
 **Found a bug?** [Report it](../../issues/new/choose): untranslated text, typos, overflow, crashes. Attaching a savestate
 helps most.
 
+## Translation status
+
+| Part | Status |
+|---|---|
+| Story scenes (three per fighter) and ending | Translated |
+| Advance mode menus and messages (File Center, Item Shop, Underground Arena, Fighters' Lodge, venues) | Translated |
+| Fighter and item names, status and option screens | Translated |
+| Title logo and graphics text (side panel name plates, day / time / stage, the WHAM! sound effect) | Translated (logo redrawn as BATTLE TYCOON) |
+| Staff roll | Translated |
+
+Known issues: not seen in testing, so less checked: the item-get prompt after a venue win, the fighter name shown at
+file registration.
+
 ## What's here
 
 | Path | What it is |
